@@ -73,6 +73,42 @@
   .linkrow{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);
     border-radius:12px;padding:14px;margin-bottom:8px;color:var(--txt);text-decoration:none;font-size:16px}
   .linkrow .chev{margin-left:auto;color:var(--muted)}
+  /* Subklassement */
+  .sp-empty{text-align:center;padding:26px 14px}
+  .sp-empty .ic{font-size:30px}
+  .sp-empty .t{font-size:16px;font-weight:700;margin:10px 0 4px}
+  .sp-empty .s{color:var(--muted);font-size:13px;line-height:1.5;max-width:320px;margin:0 auto 16px}
+  .btn{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#1a1a1a;
+    border:none;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:700;cursor:pointer}
+  .btn:active{opacity:.85}
+  .btn.ghost{background:var(--panel2);color:var(--muted);border:1px solid var(--line)}
+  .sp-chips{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  .sp-chip{background:var(--panel2);color:var(--muted);border:1px solid var(--line);border-radius:999px;
+    padding:6px 13px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .sp-chip.on{background:var(--accent);color:#1a1a1a;border-color:var(--accent)}
+  .sp-chip.add{padding:6px 10px}
+  .sp-edit{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px}
+  .seg{display:inline-flex;background:var(--panel2);border:1px solid var(--line);border-radius:10px;
+    padding:2px;margin-bottom:12px}
+  .seg button{background:none;border:none;color:var(--muted);font-size:13px;font-weight:600;
+    padding:6px 14px;border-radius:8px;cursor:pointer}
+  .seg button.on{background:var(--panel);color:var(--txt)}
+  .sp-count{color:var(--muted);font-size:12px;margin:0 0 10px}
+  .sp-list{max-height:46vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+  .sp-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line);
+    cursor:pointer;font-size:14px}
+  .sp-item:last-child{border-bottom:none}
+  .sp-item .box{width:19px;height:19px;flex:0 0 auto;border-radius:5px;border:1px solid var(--line);
+    display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:transparent;background:transparent}
+  .sp-item.sel .box{background:var(--accent);border-color:var(--accent);color:#1a1a1a}
+  .sp-field{width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--line);
+    background:var(--panel);color:var(--txt);font-size:16px;margin-bottom:10px}
+  .sp-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .sp-actions .btn{flex:1;justify-content:center;min-width:120px}
+  .sp-del{background:none;border:none;color:var(--red);font-size:13px;font-weight:600;cursor:pointer;padding:10px 6px}
+  .sp-toast{background:rgba(54,211,153,.14);border:1px solid transparent;color:var(--green);
+    border-radius:10px;padding:10px 12px;font-size:13px;margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -87,7 +123,7 @@
   <div class="tabs" id="tabs"></div>
 </header>
 <main id="app"></main>
-<script id="data" type="application/json">{"year": "2026", "stage": 5, "generated_at": "09-07-2026 18:33", "standings": [{"rank": 1, "name": "Hugo Overgoor", "dag": 75, "total": 532, "move": 1}, {"rank": 2, "name": "Cynthia de Bont", "dag": 90, "total": 527, "move": 4}, {"rank": 3, "name": "Bjørn Jansen", "dag": 90, "total": 520, "move": 6}, {"rank": 4, "name": "Bart Krechting (Skaepje)", "dag": 65, "total": 518, "move": -1}, {"rank": 5, "name": "Rob Pol", "dag": 90, "total": 515, "move": 7}, {"rank": 5, "name": "Tom Raasing", "dag": 90, "total": 515, "move": 7}, {"rank": 7, "name": "Pim van de Glind", "dag": 75, "total": 513, "move": -2}, {"rank": 8, "name": "Hans Leenders", "dag": 50, "total": 509, "move": -7}, {"rank": 9, "name": "Tim Mecking", "dag": 90, "total": 507, "move": 8}, {"rank": 10, "name": "Frank Arends", "dag": 75, "total": 505, "move": -1}, {"rank": 11, "name": "Ineke van den Top", "dag": 50, "total": 503, "move": -8}, {"rank": 11, "name": "Randy Folmer", "dag": 90, "total": 503, "move": 7}, {"rank": 13, "name": "Jacco Geurts", "dag": 90, "total": 501, "move": 8}, {"rank": 14, "name": "Felix van den Berg", "dag": 90, "total": 498, "move": 10}, {"rank": 14, "name": "Harry Mecking", "dag": 75, "total": 498, "move": 1}, {"rank": 14, "name": "Hein Smink", "dag": 90, "total": 498, "move": 10}, {"rank": 14, "name": "Lobke Krechting", "dag": 65, "total": 498, "move": -6}, {"rank": 18, "name": "Thomas van Winsen", "dag": 90, "total": 496, "move": 8}, {"rank": 19, "name": "Jaap Terhaard", "dag": 96, "total": 494, "move": 11}, {"rank": 19, "name": "Roy Kerkhoff", "dag": 96, "total": 494, "move": 11}, {"rank": 21, "name": "Niek Koenders", "dag": 94, "total": 492, "move": 9}, {"rank": 22, "name": "Marije Peters", "dag": 90, "total": 490, "move": 6}, {"rank": 22, "name": "Simon Bisselink", "dag": 65, "total": 490, "move": -10}, {"rank": 24, "name": "Rutger IJzermans", "dag": 75, "total": 488, "move": -6}, {"rank": 25, "name": "Tom Aarsman", "dag": 50, "total": 487, "move": -19}, {"rank": 26, "name": "Marco Willems", "dag": 103, "total": 486, "move": 13}, {"rank": 27, "name": "Robin Leemans", "dag": 90, "total": 485, "move": 8}, {"rank": 28, "name": "Rogier den Balvert", "dag": 103, "total": 482, "move": 15}, {"rank": 29, "name": "Leon Leenders", "dag": 55, "total": 477, "move": -13}, {"rank": 30, "name": "Sjoerd Bisselink", "dag": 65, "total": 476, "move": -9}, {"rank": 31, "name": "Menno Propitius", "dag": 90, "total": 474, "move": 7}, {"rank": 32, "name": "Feike Smits", "dag": 45, "total": 473, "move": -21}, {"rank": 32, "name": "Jasper van Houten", "dag": 90, "total": 473, "move": 7}, {"rank": 34, "name": "Chantal van Lier", "dag": 90, "total": 471, "move": 7}, {"rank": 34, "name": "Maurice Hoveijn", "dag": 96, "total": 471, "move": 11}, {"rank": 36, "name": "Jan van Looijengoed", "dag": 55, "total": 467, "move": -16}, {"rank": 37, "name": "Maura Kampstra", "dag": 67, "total": 466, "move": -8}, {"rank": 38, "name": "Harry IJzermans", "dag": 95, "total": 465, "move": 13}, {"rank": 38, "name": "Rick Smink", "dag": 96, "total": 465, "move": 14}, {"rank": 40, "name": "Julian Willemsen", "dag": 95, "total": 464, "move": 12}, {"rank": 41, "name": "Gerry Smink", "dag": 88, "total": 461, "move": 8}, {"rank": 42, "name": "Arno Vermeulen", "dag": 50, "total": 459, "move": -19}, {"rank": 43, "name": "Jan Gerretzen", "dag": 103, "total": 457, "move": 16}, {"rank": 44, "name": "Joris Boss", "dag": 90, "total": 456, "move": 10}, {"rank": 45, "name": "Remco Westerik", "dag": 61, "total": 454, "move": -9}, {"rank": 46, "name": "Gerard Smink", "dag": 96, "total": 452, "move": 11}, {"rank": 47, "name": "Sjoerd van den Brink", "dag": 61, "total": 451, "move": -10}, {"rank": 48, "name": "Ronald Schoonbeek", "dag": 45, "total": 448, "move": -21}, {"rank": 48, "name": "Wouter IJzermans", "dag": 96, "total": 448, "move": 14}, {"rank": 50, "name": "Karin Van de Glind", "dag": 75, "total": 447, "move": 0}, {"rank": 50, "name": "Tom Smits", "dag": 50, "total": 447, "move": -16}, {"rank": 52, "name": "Michel van Enckevort", "dag": 65, "total": 445, "move": -10}, {"rank": 53, "name": "Martijn Maessen", "dag": 96, "total": 444, "move": 11}, {"rank": 53, "name": "Perry Duijkers", "dag": 90, "total": 444, "move": 6}, {"rank": 53, "name": "Stefan Fritsema", "dag": 109, "total": 444, "move": 19}, {"rank": 56, "name": "Anne Matser", "dag": 77, "total": 443, "move": -2}, {"rank": 56, "name": "Danielle Arts-Fritsema", "dag": 45, "total": 443, "move": -26}, {"rank": 56, "name": "Dennis Arts", "dag": 90, "total": 443, "move": 5}, {"rank": 59, "name": "John Verheul", "dag": 112, "total": 442, "move": 18}, {"rank": 60, "name": "Christonne Jansen", "dag": 90, "total": 441, "move": 3}, {"rank": 60, "name": "Patrick Mansveld", "dag": 103, "total": 441, "move": 10}, {"rank": 62, "name": "Hennie van Betuw", "dag": 65, "total": 440, "move": -17}, {"rank": 63, "name": "Stefan Bloemberg", "dag": 65, "total": 439, "move": -15}, {"rank": 64, "name": "Kelsey Willems - Limburg", "dag": 96, "total": 438, "move": 3}, {"rank": 64, "name": "Theo Smink", "dag": 95, "total": 438, "move": 2}, {"rank": 66, "name": "Milo Pas", "dag": 51, "total": 428, "move": -22}, {"rank": 66, "name": "Wilbert Ebbers", "dag": 70, "total": 428, "move": -10}, {"rank": 68, "name": "Ruud Fritsema", "dag": 95, "total": 427, "move": 8}, {"rank": 69, "name": "Marcko Willemsen", "dag": 90, "total": 426, "move": 2}, {"rank": 70, "name": "Nico-Jan Koenders", "dag": 67, "total": 423, "move": -13}, {"rank": 71, "name": "Herman Geurts", "dag": 76, "total": 415, "move": -2}, {"rank": 72, "name": "Dorine Fritsema", "dag": 75, "total": 410, "move": 0}, {"rank": 73, "name": "Rutger Boevink", "dag": 99, "total": 407, "move": 8}, {"rank": 74, "name": "Niek Dorrepaal", "dag": 31, "total": 406, "move": -29}, {"rank": 75, "name": "Henk Smink", "dag": 96, "total": 404, "move": 6}, {"rank": 76, "name": "Lucas Vos", "dag": 76, "total": 403, "move": 2}, {"rank": 77, "name": "Gilles Visser", "dag": 51, "total": 398, "move": -12}, {"rank": 77, "name": "Jorn van der sterren", "dag": 90, "total": 398, "move": 4}, {"rank": 79, "name": "Ezra Smink", "dag": 55, "total": 397, "move": -12}, {"rank": 79, "name": "Theo Terhaard", "dag": 64, "total": 397, "move": -4}, {"rank": 81, "name": "Gerry van der Sterren", "dag": 52, "total": 386, "move": -7}, {"rank": 82, "name": "Bart Krechting (Vaalman)", "dag": 70, "total": 380, "move": -2}, {"rank": 83, "name": "Jack Gieles", "dag": 51, "total": 362, "move": -4}, {"rank": 84, "name": "Jakob Smit", "dag": 93, "total": 343, "move": 5}, {"rank": 85, "name": "Joey van Schaik", "dag": 56, "total": 342, "move": -1}, {"rank": 86, "name": "Thijs Veelen", "dag": 96, "total": 332, "move": 6}, {"rank": 87, "name": "Eddy Visser", "dag": 75, "total": 330, "move": 0}, {"rank": 87, "name": "Karin Leenders-Dibbes", "dag": 73, "total": 330, "move": -1}, {"rank": 89, "name": "Joris Reijbroek", "dag": 36, "total": 309, "move": -4}, {"rank": 90, "name": "Fred Steens", "dag": 39, "total": 287, "move": 0}, {"rank": 91, "name": "Henk Wanningen", "dag": 20, "total": 273, "move": -3}, {"rank": 92, "name": "Wim Willemsen", "dag": 22, "total": 265, "move": -1}], "dagscore": [{"rank": 1, "name": "John Verheul", "score": 112, "doping": "Suntory The Chita"}, {"rank": 2, "name": "Stefan Fritsema", "score": 109}, {"rank": 3, "name": "Jan Gerretzen", "score": 103}, {"rank": 3, "name": "Marco Willems", "score": 103}, {"rank": 3, "name": "Patrick Mansveld", "score": 103}, {"rank": 3, "name": "Rogier den Balvert", "score": 103}, {"rank": 7, "name": "Rutger Boevink", "score": 99}, {"rank": 8, "name": "Gerard Smink", "score": 96}, {"rank": 8, "name": "Henk Smink", "score": 96}, {"rank": 8, "name": "Jaap Terhaard", "score": 96}, {"rank": 8, "name": "Kelsey Willems - Limburg", "score": 96}, {"rank": 8, "name": "Martijn Maessen", "score": 96}, {"rank": 8, "name": "Maurice Hoveijn", "score": 96}, {"rank": 8, "name": "Rick Smink", "score": 96}, {"rank": 8, "name": "Roy Kerkhoff", "score": 96}, {"rank": 8, "name": "Thijs Veelen", "score": 96}, {"rank": 8, "name": "Wouter IJzermans", "score": 96}, {"rank": 18, "name": "Harry IJzermans", "score": 95}, {"rank": 18, "name": "Julian Willemsen", "score": 95}, {"rank": 18, "name": "Ruud Fritsema", "score": 95}, {"rank": 18, "name": "Theo Smink", "score": 95}, {"rank": 22, "name": "Niek Koenders", "score": 94}, {"rank": 23, "name": "Jakob Smit", "score": 93}, {"rank": 24, "name": "Bjørn Jansen", "score": 90}, {"rank": 24, "name": "Chantal van Lier", "score": 90}, {"rank": 24, "name": "Christonne Jansen", "score": 90}, {"rank": 24, "name": "Cynthia de Bont", "score": 90}, {"rank": 24, "name": "Dennis Arts", "score": 90}, {"rank": 24, "name": "Felix van den Berg", "score": 90}, {"rank": 24, "name": "Hein Smink", "score": 90}, {"rank": 24, "name": "Jacco Geurts", "score": 90}, {"rank": 24, "name": "Jasper van Houten", "score": 90}, {"rank": 24, "name": "Joris Boss", "score": 90}, {"rank": 24, "name": "Jorn van der sterren", "score": 90}, {"rank": 24, "name": "Marcko Willemsen", "score": 90}, {"rank": 24, "name": "Marije Peters", "score": 90}, {"rank": 24, "name": "Menno Propitius", "score": 90}, {"rank": 24, "name": "Perry Duijkers", "score": 90}, {"rank": 24, "name": "Randy Folmer", "score": 90}, {"rank": 24, "name": "Rob Pol", "score": 90}, {"rank": 24, "name": "Robin Leemans", "score": 90}, {"rank": 24, "name": "Thomas van Winsen", "score": 90}, {"rank": 24, "name": "Tim Mecking", "score": 90}, {"rank": 24, "name": "Tom Raasing", "score": 90}, {"rank": 45, "name": "Gerry Smink", "score": 88}, {"rank": 46, "name": "Anne Matser", "score": 77}, {"rank": 47, "name": "Herman Geurts", "score": 76}, {"rank": 47, "name": "Lucas Vos", "score": 76}, {"rank": 49, "name": "Dorine Fritsema", "score": 75}, {"rank": 49, "name": "Eddy Visser", "score": 75}, {"rank": 49, "name": "Frank Arends", "score": 75}, {"rank": 49, "name": "Harry Mecking", "score": 75}, {"rank": 49, "name": "Hugo Overgoor", "score": 75}, {"rank": 49, "name": "Karin Van de Glind", "score": 75}, {"rank": 49, "name": "Pim van de Glind", "score": 75}, {"rank": 49, "name": "Rutger IJzermans", "score": 75}, {"rank": 57, "name": "Karin Leenders-Dibbes", "score": 73}, {"rank": 58, "name": "Bart Krechting (Vaalman)", "score": 70}, {"rank": 58, "name": "Wilbert Ebbers", "score": 70}, {"rank": 60, "name": "Maura Kampstra", "score": 67}, {"rank": 60, "name": "Nico-Jan Koenders", "score": 67}, {"rank": 62, "name": "Bart Krechting (Skaepje)", "score": 65}, {"rank": 62, "name": "Hennie van Betuw", "score": 65}, {"rank": 62, "name": "Lobke Krechting", "score": 65}, {"rank": 62, "name": "Michel van Enckevort", "score": 65}, {"rank": 62, "name": "Simon Bisselink", "score": 65}, {"rank": 62, "name": "Sjoerd Bisselink", "score": 65}, {"rank": 62, "name": "Stefan Bloemberg", "score": 65}, {"rank": 69, "name": "Theo Terhaard", "score": 64}, {"rank": 70, "name": "Remco Westerik", "score": 61}, {"rank": 70, "name": "Sjoerd van den Brink", "score": 61}, {"rank": 72, "name": "Joey van Schaik", "score": 56}, {"rank": 73, "name": "Ezra Smink", "score": 55}, {"rank": 73, "name": "Jan van Looijengoed", "score": 55}, {"rank": 73, "name": "Leon Leenders", "score": 55}, {"rank": 76, "name": "Gerry van der Sterren", "score": 52}, {"rank": 77, "name": "Gilles Visser", "score": 51}, {"rank": 77, "name": "Jack Gieles", "score": 51}, {"rank": 77, "name": "Milo Pas", "score": 51}, {"rank": 80, "name": "Arno Vermeulen", "score": 50}, {"rank": 80, "name": "Hans Leenders", "score": 50}, {"rank": 80, "name": "Ineke van den Top", "score": 50}, {"rank": 80, "name": "Tom Aarsman", "score": 50}, {"rank": 80, "name": "Tom Smits", "score": 50}, {"rank": 85, "name": "Danielle Arts-Fritsema", "score": 45}, {"rank": 85, "name": "Feike Smits", "score": 45}, {"rank": 85, "name": "Ronald Schoonbeek", "score": 45}, {"rank": 88, "name": "Fred Steens", "score": 39}, {"rank": 89, "name": "Joris Reijbroek", "score": 36}, {"rank": 90, "name": "Niek Dorrepaal", "score": 31}, {"rank": 91, "name": "Wim Willemsen", "score": 22}, {"rank": 92, "name": "Henk Wanningen", "score": 20}], "results": [{"rank": 1, "rider": "KOOIJ Olav", "team": "Decathlon CMA CGM Team", "points": 25}, {"rank": 2, "rider": "KANTER Max", "team": "XDS Astana Team", "points": 22}, {"rank": 3, "rider": "MERLIER Tim", "team": "Soudal Quick-Step", "points": 20}, {"rank": 4, "rider": "ARTZ Huub", "team": "Lotto Intermarché", "points": 18}, {"rank": 5, "rider": "PHILIPSEN Jasper", "team": "Alpecin - Premier Tech", "points": 16}, {"rank": 6, "rider": "GIRMAY Biniam", "team": "NSN Cycling Team", "points": 15}, {"rank": 7, "rider": "PEDERSEN Mads", "team": "Lidl - Trek", "points": 14}, {"rank": 8, "rider": "FRETIN Milan", "team": "Cofidis", "points": 13}, {"rank": 9, "rider": "TURGIS Anthony", "team": "TotalEnergies", "points": 12}, {"rank": 10, "rider": "WÆRENSKJOLD Søren", "team": "Uno-X Mobility", "points": 11}, {"rank": 11, "rider": "BERCKMOES Jenno", "team": "Lotto Intermarché", "points": 10}, {"rank": 12, "rider": "ACKERMANN Pascal", "team": "Team Jayco AlUla", "points": 9}, {"rank": 13, "rider": "RUSSO Clément", "team": "Groupama - FDJ United", "points": 8}, {"rank": 14, "rider": "PLUIMERS Rick", "team": "Tudor Pro Cycling Team", "points": 7}, {"rank": 15, "rider": "GODON Dorian", "team": "Netcompany INEOS", "points": 6}, {"rank": 16, "rider": "BITTNER Pavel", "team": "Team Picnic PostNL", "points": 5}, {"rank": 17, "rider": "GAVIRIA Fernando", "team": "Caja Rural - Seguros RGA", "points": 4}, {"rank": 18, "rider": "BAUHAUS Phil", "team": "Bahrain - Victorious", "points": 3}, {"rank": 19, "rider": "TEUNISSEN Mike", "team": "XDS Astana Team", "points": 2}, {"rank": 20, "rider": "GATE Aaron", "team": "XDS Astana Team", "points": 1}], "abandons": [{"name": "O'BRIEN Kelland", "team": "Team Jayco AlUla", "type": "OTL", "stage": 4}]}</script>
+<script id="data" type="application/json">{"year": "2026", "stage": 5, "generated_at": "09-07-2026 18:58", "standings": [{"id": 84, "rank": 1, "name": "Hugo Overgoor", "dag": 75, "total": 532, "move": 1, "pt": 457}, {"id": 88, "rank": 2, "name": "Cynthia de Bont", "dag": 90, "total": 527, "move": 4, "pt": 437}, {"id": 59, "rank": 3, "name": "Bjørn Jansen", "dag": 90, "total": 520, "move": 6, "pt": 430}, {"id": 93, "rank": 4, "name": "Bart Krechting (Skaepje)", "dag": 65, "total": 518, "move": -1, "pt": 453}, {"id": 38, "rank": 5, "name": "Rob Pol", "dag": 90, "total": 515, "move": 7, "pt": 425}, {"id": 33, "rank": 5, "name": "Tom Raasing", "dag": 90, "total": 515, "move": 7, "pt": 425}, {"id": 25, "rank": 7, "name": "Pim van de Glind", "dag": 75, "total": 513, "move": -2, "pt": 438}, {"id": 75, "rank": 8, "name": "Hans Leenders", "dag": 50, "total": 509, "move": -7, "pt": 459}, {"id": 82, "rank": 9, "name": "Tim Mecking", "dag": 90, "total": 507, "move": 8, "pt": 417}, {"id": 22, "rank": 10, "name": "Frank Arends", "dag": 75, "total": 505, "move": -1, "pt": 430}, {"id": 77, "rank": 11, "name": "Ineke van den Top", "dag": 50, "total": 503, "move": -8, "pt": 453}, {"id": 73, "rank": 11, "name": "Randy Folmer", "dag": 90, "total": 503, "move": 7, "pt": 413}, {"id": 9, "rank": 13, "name": "Jacco Geurts", "dag": 90, "total": 501, "move": 8, "pt": 411}, {"id": 24, "rank": 14, "name": "Felix van den Berg", "dag": 90, "total": 498, "move": 10, "pt": 408}, {"id": 85, "rank": 14, "name": "Harry Mecking", "dag": 75, "total": 498, "move": 1, "pt": 423}, {"id": 79, "rank": 14, "name": "Hein Smink", "dag": 90, "total": 498, "move": 10, "pt": 408}, {"id": 45, "rank": 14, "name": "Lobke Krechting", "dag": 65, "total": 498, "move": -6, "pt": 433}, {"id": 55, "rank": 18, "name": "Thomas van Winsen", "dag": 90, "total": 496, "move": 8, "pt": 406}, {"id": 27, "rank": 19, "name": "Jaap Terhaard", "dag": 96, "total": 494, "move": 11, "pt": 398}, {"id": 16, "rank": 19, "name": "Roy Kerkhoff", "dag": 96, "total": 494, "move": 11, "pt": 398}, {"id": 5, "rank": 21, "name": "Niek Koenders", "dag": 94, "total": 492, "move": 9, "pt": 398}, {"id": 34, "rank": 22, "name": "Marije Peters", "dag": 90, "total": 490, "move": 6, "pt": 400}, {"id": 96, "rank": 22, "name": "Simon Bisselink", "dag": 65, "total": 490, "move": -10, "pt": 425}, {"id": 23, "rank": 24, "name": "Rutger IJzermans", "dag": 75, "total": 488, "move": -6, "pt": 413}, {"id": 61, "rank": 25, "name": "Tom Aarsman", "dag": 50, "total": 487, "move": -19, "pt": 437}, {"id": 57, "rank": 26, "name": "Marco Willems", "dag": 103, "total": 486, "move": 13, "pt": 383}, {"id": 6, "rank": 27, "name": "Robin Leemans", "dag": 90, "total": 485, "move": 8, "pt": 395}, {"id": 28, "rank": 28, "name": "Rogier den Balvert", "dag": 103, "total": 482, "move": 15, "pt": 379}, {"id": 70, "rank": 29, "name": "Leon Leenders", "dag": 55, "total": 477, "move": -13, "pt": 422}, {"id": 31, "rank": 30, "name": "Sjoerd Bisselink", "dag": 65, "total": 476, "move": -9, "pt": 411}, {"id": 44, "rank": 31, "name": "Menno Propitius", "dag": 90, "total": 474, "move": 7, "pt": 384}, {"id": 36, "rank": 32, "name": "Feike Smits", "dag": 45, "total": 473, "move": -21, "pt": 428}, {"id": 37, "rank": 32, "name": "Jasper van Houten", "dag": 90, "total": 473, "move": 7, "pt": 383}, {"id": 51, "rank": 34, "name": "Chantal van Lier", "dag": 90, "total": 471, "move": 7, "pt": 381}, {"id": 83, "rank": 34, "name": "Maurice Hoveijn", "dag": 96, "total": 471, "move": 11, "pt": 375}, {"id": 20, "rank": 36, "name": "Jan van Looijengoed", "dag": 55, "total": 467, "move": -16, "pt": 412}, {"id": 94, "rank": 37, "name": "Maura Kampstra", "dag": 67, "total": 466, "move": -8, "pt": 399}, {"id": 46, "rank": 38, "name": "Harry IJzermans", "dag": 95, "total": 465, "move": 13, "pt": 370}, {"id": 65, "rank": 38, "name": "Rick Smink", "dag": 96, "total": 465, "move": 14, "pt": 369}, {"id": 74, "rank": 40, "name": "Julian Willemsen", "dag": 95, "total": 464, "move": 12, "pt": 369}, {"id": 89, "rank": 41, "name": "Gerry Smink", "dag": 88, "total": 461, "move": 8, "pt": 373}, {"id": 43, "rank": 42, "name": "Arno Vermeulen", "dag": 50, "total": 459, "move": -19, "pt": 409}, {"id": 11, "rank": 43, "name": "Jan Gerretzen", "dag": 103, "total": 457, "move": 16, "pt": 354}, {"id": 7, "rank": 44, "name": "Joris Boss", "dag": 90, "total": 456, "move": 10, "pt": 366}, {"id": 52, "rank": 45, "name": "Remco Westerik", "dag": 61, "total": 454, "move": -9, "pt": 393}, {"id": 39, "rank": 46, "name": "Gerard Smink", "dag": 96, "total": 452, "move": 11, "pt": 356}, {"id": 14, "rank": 47, "name": "Sjoerd van den Brink", "dag": 61, "total": 451, "move": -10, "pt": 390}, {"id": 64, "rank": 48, "name": "Ronald Schoonbeek", "dag": 45, "total": 448, "move": -21, "pt": 403}, {"id": 42, "rank": 48, "name": "Wouter IJzermans", "dag": 96, "total": 448, "move": 14, "pt": 352}, {"id": 49, "rank": 50, "name": "Karin Van de Glind", "dag": 75, "total": 447, "move": 0, "pt": 372}, {"id": 10, "rank": 50, "name": "Tom Smits", "dag": 50, "total": 447, "move": -16, "pt": 397}, {"id": 12, "rank": 52, "name": "Michel van Enckevort", "dag": 65, "total": 445, "move": -10, "pt": 380}, {"id": 67, "rank": 53, "name": "Martijn Maessen", "dag": 96, "total": 444, "move": 11, "pt": 348}, {"id": 58, "rank": 53, "name": "Perry Duijkers", "dag": 90, "total": 444, "move": 6, "pt": 354}, {"id": 53, "rank": 53, "name": "Stefan Fritsema", "dag": 109, "total": 444, "move": 19, "pt": 335}, {"id": 91, "rank": 56, "name": "Anne Matser", "dag": 77, "total": 443, "move": -2, "pt": 366}, {"id": 72, "rank": 56, "name": "Danielle Arts-Fritsema", "dag": 45, "total": 443, "move": -26, "pt": 398}, {"id": 76, "rank": 56, "name": "Dennis Arts", "dag": 90, "total": 443, "move": 5, "pt": 353}, {"id": 81, "rank": 59, "name": "John Verheul", "dag": 112, "total": 442, "move": 18, "pt": 330}, {"id": 66, "rank": 60, "name": "Christonne Jansen", "dag": 90, "total": 441, "move": 3, "pt": 351}, {"id": 32, "rank": 60, "name": "Patrick Mansveld", "dag": 103, "total": 441, "move": 10, "pt": 338}, {"id": 80, "rank": 62, "name": "Hennie van Betuw", "dag": 65, "total": 440, "move": -17, "pt": 375}, {"id": 87, "rank": 63, "name": "Stefan Bloemberg", "dag": 65, "total": 439, "move": -15, "pt": 374}, {"id": 47, "rank": 64, "name": "Kelsey Willems - Limburg", "dag": 96, "total": 438, "move": 3, "pt": 342}, {"id": 13, "rank": 64, "name": "Theo Smink", "dag": 95, "total": 438, "move": 2, "pt": 343}, {"id": 15, "rank": 66, "name": "Milo Pas", "dag": 51, "total": 428, "move": -22, "pt": 377}, {"id": 68, "rank": 66, "name": "Wilbert Ebbers", "dag": 70, "total": 428, "move": -10, "pt": 358}, {"id": 40, "rank": 68, "name": "Ruud Fritsema", "dag": 95, "total": 427, "move": 8, "pt": 332}, {"id": 21, "rank": 69, "name": "Marcko Willemsen", "dag": 90, "total": 426, "move": 2, "pt": 336}, {"id": 62, "rank": 70, "name": "Nico-Jan Koenders", "dag": 67, "total": 423, "move": -13, "pt": 356}, {"id": 8, "rank": 71, "name": "Herman Geurts", "dag": 76, "total": 415, "move": -2, "pt": 339}, {"id": 41, "rank": 72, "name": "Dorine Fritsema", "dag": 75, "total": 410, "move": 0, "pt": 335}, {"id": 69, "rank": 73, "name": "Rutger Boevink", "dag": 99, "total": 407, "move": 8, "pt": 308}, {"id": 19, "rank": 74, "name": "Niek Dorrepaal", "dag": 31, "total": 406, "move": -29, "pt": 375}, {"id": 63, "rank": 75, "name": "Henk Smink", "dag": 96, "total": 404, "move": 6, "pt": 308}, {"id": 50, "rank": 76, "name": "Lucas Vos", "dag": 76, "total": 403, "move": 2, "pt": 327}, {"id": 2, "rank": 77, "name": "Gilles Visser", "dag": 51, "total": 398, "move": -12, "pt": 347}, {"id": 92, "rank": 77, "name": "Jorn van der sterren", "dag": 90, "total": 398, "move": 4, "pt": 308}, {"id": 60, "rank": 79, "name": "Ezra Smink", "dag": 55, "total": 397, "move": -12, "pt": 342}, {"id": 30, "rank": 79, "name": "Theo Terhaard", "dag": 64, "total": 397, "move": -4, "pt": 333}, {"id": 54, "rank": 81, "name": "Gerry van der Sterren", "dag": 52, "total": 386, "move": -7, "pt": 334}, {"id": 95, "rank": 82, "name": "Bart Krechting (Vaalman)", "dag": 70, "total": 380, "move": -2, "pt": 310}, {"id": 4, "rank": 83, "name": "Jack Gieles", "dag": 51, "total": 362, "move": -4, "pt": 311}, {"id": 26, "rank": 84, "name": "Jakob Smit", "dag": 93, "total": 343, "move": 5, "pt": 250}, {"id": 86, "rank": 85, "name": "Joey van Schaik", "dag": 56, "total": 342, "move": -1, "pt": 286}, {"id": 35, "rank": 86, "name": "Thijs Veelen", "dag": 96, "total": 332, "move": 6, "pt": 236}, {"id": 17, "rank": 87, "name": "Eddy Visser", "dag": 75, "total": 330, "move": 0, "pt": 255}, {"id": 78, "rank": 87, "name": "Karin Leenders-Dibbes", "dag": 73, "total": 330, "move": -1, "pt": 257}, {"id": 29, "rank": 89, "name": "Joris Reijbroek", "dag": 36, "total": 309, "move": -4, "pt": 273}, {"id": 90, "rank": 90, "name": "Fred Steens", "dag": 39, "total": 287, "move": 0, "pt": 248}, {"id": 18, "rank": 91, "name": "Henk Wanningen", "dag": 20, "total": 273, "move": -3, "pt": 253}, {"id": 3, "rank": 92, "name": "Wim Willemsen", "dag": 22, "total": 265, "move": -1, "pt": 243}], "dagscore": [{"id": 81, "rank": 1, "name": "John Verheul", "score": 112, "doping": "Suntory The Chita"}, {"id": 53, "rank": 2, "name": "Stefan Fritsema", "score": 109}, {"id": 11, "rank": 3, "name": "Jan Gerretzen", "score": 103}, {"id": 57, "rank": 3, "name": "Marco Willems", "score": 103}, {"id": 32, "rank": 3, "name": "Patrick Mansveld", "score": 103}, {"id": 28, "rank": 3, "name": "Rogier den Balvert", "score": 103}, {"id": 69, "rank": 7, "name": "Rutger Boevink", "score": 99}, {"id": 39, "rank": 8, "name": "Gerard Smink", "score": 96}, {"id": 63, "rank": 8, "name": "Henk Smink", "score": 96}, {"id": 27, "rank": 8, "name": "Jaap Terhaard", "score": 96}, {"id": 47, "rank": 8, "name": "Kelsey Willems - Limburg", "score": 96}, {"id": 67, "rank": 8, "name": "Martijn Maessen", "score": 96}, {"id": 83, "rank": 8, "name": "Maurice Hoveijn", "score": 96}, {"id": 65, "rank": 8, "name": "Rick Smink", "score": 96}, {"id": 16, "rank": 8, "name": "Roy Kerkhoff", "score": 96}, {"id": 35, "rank": 8, "name": "Thijs Veelen", "score": 96}, {"id": 42, "rank": 8, "name": "Wouter IJzermans", "score": 96}, {"id": 46, "rank": 18, "name": "Harry IJzermans", "score": 95}, {"id": 74, "rank": 18, "name": "Julian Willemsen", "score": 95}, {"id": 40, "rank": 18, "name": "Ruud Fritsema", "score": 95}, {"id": 13, "rank": 18, "name": "Theo Smink", "score": 95}, {"id": 5, "rank": 22, "name": "Niek Koenders", "score": 94}, {"id": 26, "rank": 23, "name": "Jakob Smit", "score": 93}, {"id": 59, "rank": 24, "name": "Bjørn Jansen", "score": 90}, {"id": 51, "rank": 24, "name": "Chantal van Lier", "score": 90}, {"id": 66, "rank": 24, "name": "Christonne Jansen", "score": 90}, {"id": 88, "rank": 24, "name": "Cynthia de Bont", "score": 90}, {"id": 76, "rank": 24, "name": "Dennis Arts", "score": 90}, {"id": 24, "rank": 24, "name": "Felix van den Berg", "score": 90}, {"id": 79, "rank": 24, "name": "Hein Smink", "score": 90}, {"id": 9, "rank": 24, "name": "Jacco Geurts", "score": 90}, {"id": 37, "rank": 24, "name": "Jasper van Houten", "score": 90}, {"id": 7, "rank": 24, "name": "Joris Boss", "score": 90}, {"id": 92, "rank": 24, "name": "Jorn van der sterren", "score": 90}, {"id": 21, "rank": 24, "name": "Marcko Willemsen", "score": 90}, {"id": 34, "rank": 24, "name": "Marije Peters", "score": 90}, {"id": 44, "rank": 24, "name": "Menno Propitius", "score": 90}, {"id": 58, "rank": 24, "name": "Perry Duijkers", "score": 90}, {"id": 73, "rank": 24, "name": "Randy Folmer", "score": 90}, {"id": 38, "rank": 24, "name": "Rob Pol", "score": 90}, {"id": 6, "rank": 24, "name": "Robin Leemans", "score": 90}, {"id": 55, "rank": 24, "name": "Thomas van Winsen", "score": 90}, {"id": 82, "rank": 24, "name": "Tim Mecking", "score": 90}, {"id": 33, "rank": 24, "name": "Tom Raasing", "score": 90}, {"id": 89, "rank": 45, "name": "Gerry Smink", "score": 88}, {"id": 91, "rank": 46, "name": "Anne Matser", "score": 77}, {"id": 8, "rank": 47, "name": "Herman Geurts", "score": 76}, {"id": 50, "rank": 47, "name": "Lucas Vos", "score": 76}, {"id": 41, "rank": 49, "name": "Dorine Fritsema", "score": 75}, {"id": 17, "rank": 49, "name": "Eddy Visser", "score": 75}, {"id": 22, "rank": 49, "name": "Frank Arends", "score": 75}, {"id": 85, "rank": 49, "name": "Harry Mecking", "score": 75}, {"id": 84, "rank": 49, "name": "Hugo Overgoor", "score": 75}, {"id": 49, "rank": 49, "name": "Karin Van de Glind", "score": 75}, {"id": 25, "rank": 49, "name": "Pim van de Glind", "score": 75}, {"id": 23, "rank": 49, "name": "Rutger IJzermans", "score": 75}, {"id": 78, "rank": 57, "name": "Karin Leenders-Dibbes", "score": 73}, {"id": 95, "rank": 58, "name": "Bart Krechting (Vaalman)", "score": 70}, {"id": 68, "rank": 58, "name": "Wilbert Ebbers", "score": 70}, {"id": 94, "rank": 60, "name": "Maura Kampstra", "score": 67}, {"id": 62, "rank": 60, "name": "Nico-Jan Koenders", "score": 67}, {"id": 93, "rank": 62, "name": "Bart Krechting (Skaepje)", "score": 65}, {"id": 80, "rank": 62, "name": "Hennie van Betuw", "score": 65}, {"id": 45, "rank": 62, "name": "Lobke Krechting", "score": 65}, {"id": 12, "rank": 62, "name": "Michel van Enckevort", "score": 65}, {"id": 96, "rank": 62, "name": "Simon Bisselink", "score": 65}, {"id": 31, "rank": 62, "name": "Sjoerd Bisselink", "score": 65}, {"id": 87, "rank": 62, "name": "Stefan Bloemberg", "score": 65}, {"id": 30, "rank": 69, "name": "Theo Terhaard", "score": 64}, {"id": 52, "rank": 70, "name": "Remco Westerik", "score": 61}, {"id": 14, "rank": 70, "name": "Sjoerd van den Brink", "score": 61}, {"id": 86, "rank": 72, "name": "Joey van Schaik", "score": 56}, {"id": 60, "rank": 73, "name": "Ezra Smink", "score": 55}, {"id": 20, "rank": 73, "name": "Jan van Looijengoed", "score": 55}, {"id": 70, "rank": 73, "name": "Leon Leenders", "score": 55}, {"id": 54, "rank": 76, "name": "Gerry van der Sterren", "score": 52}, {"id": 2, "rank": 77, "name": "Gilles Visser", "score": 51}, {"id": 4, "rank": 77, "name": "Jack Gieles", "score": 51}, {"id": 15, "rank": 77, "name": "Milo Pas", "score": 51}, {"id": 43, "rank": 80, "name": "Arno Vermeulen", "score": 50}, {"id": 75, "rank": 80, "name": "Hans Leenders", "score": 50}, {"id": 77, "rank": 80, "name": "Ineke van den Top", "score": 50}, {"id": 61, "rank": 80, "name": "Tom Aarsman", "score": 50}, {"id": 10, "rank": 80, "name": "Tom Smits", "score": 50}, {"id": 72, "rank": 85, "name": "Danielle Arts-Fritsema", "score": 45}, {"id": 36, "rank": 85, "name": "Feike Smits", "score": 45}, {"id": 64, "rank": 85, "name": "Ronald Schoonbeek", "score": 45}, {"id": 90, "rank": 88, "name": "Fred Steens", "score": 39}, {"id": 29, "rank": 89, "name": "Joris Reijbroek", "score": 36}, {"id": 19, "rank": 90, "name": "Niek Dorrepaal", "score": 31}, {"id": 3, "rank": 91, "name": "Wim Willemsen", "score": 22}, {"id": 18, "rank": 92, "name": "Henk Wanningen", "score": 20}], "results": [{"rank": 1, "rider": "KOOIJ Olav", "team": "Decathlon CMA CGM Team", "points": 25}, {"rank": 2, "rider": "KANTER Max", "team": "XDS Astana Team", "points": 22}, {"rank": 3, "rider": "MERLIER Tim", "team": "Soudal Quick-Step", "points": 20}, {"rank": 4, "rider": "ARTZ Huub", "team": "Lotto Intermarché", "points": 18}, {"rank": 5, "rider": "PHILIPSEN Jasper", "team": "Alpecin - Premier Tech", "points": 16}, {"rank": 6, "rider": "GIRMAY Biniam", "team": "NSN Cycling Team", "points": 15}, {"rank": 7, "rider": "PEDERSEN Mads", "team": "Lidl - Trek", "points": 14}, {"rank": 8, "rider": "FRETIN Milan", "team": "Cofidis", "points": 13}, {"rank": 9, "rider": "TURGIS Anthony", "team": "TotalEnergies", "points": 12}, {"rank": 10, "rider": "WÆRENSKJOLD Søren", "team": "Uno-X Mobility", "points": 11}, {"rank": 11, "rider": "BERCKMOES Jenno", "team": "Lotto Intermarché", "points": 10}, {"rank": 12, "rider": "ACKERMANN Pascal", "team": "Team Jayco AlUla", "points": 9}, {"rank": 13, "rider": "RUSSO Clément", "team": "Groupama - FDJ United", "points": 8}, {"rank": 14, "rider": "PLUIMERS Rick", "team": "Tudor Pro Cycling Team", "points": 7}, {"rank": 15, "rider": "GODON Dorian", "team": "Netcompany INEOS", "points": 6}, {"rank": 16, "rider": "BITTNER Pavel", "team": "Team Picnic PostNL", "points": 5}, {"rank": 17, "rider": "GAVIRIA Fernando", "team": "Caja Rural - Seguros RGA", "points": 4}, {"rank": 18, "rider": "BAUHAUS Phil", "team": "Bahrain - Victorious", "points": 3}, {"rank": 19, "rider": "TEUNISSEN Mike", "team": "XDS Astana Team", "points": 2}, {"rank": 20, "rider": "GATE Aaron", "team": "XDS Astana Team", "points": 1}], "abandons": [{"name": "O'BRIEN Kelland", "team": "Team Jayco AlUla", "type": "OTL", "stage": 4}]}</script>
 <script>
 const D = JSON.parse(document.getElementById('data').textContent);
 const state = { tab:'tussenstand', q:'' };
@@ -95,7 +131,15 @@ const TABS = [
   {id:'tussenstand', label:'Tussenstand'},
   {id:'dagscore', label:'Dagscore'},
   {id:'uitslag', label:'Uitslag'},
+  {id:'subklassement', label:'Subklassement'},
 ];
+// --- Subklassement-state (eigen views, bewaard in de browser per jaar) ---
+const SP_KEY = 'tp-subpoule:1:' + (D.year || 'x');
+let spViews = [];          // [{id, name, members:[deelnemerId,...]}]
+let spActive = null;       // id van de actieve view
+let spSub = 'klassement';  // 'klassement' | 'dagscore'
+let spEdit = null;         // null of {id, name, members:Set} tijdens bewerken
+let spToast = '';          // eenmalige melding
 const esc = s => (s==null?'':String(s)).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const norm = s => (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 function applyTheme(t){
@@ -143,8 +187,156 @@ function abandonsHtml(){
     D.abandons.map(a=>`<div class="abrow"><span class="pill out">${esc(a.type)}</span><span class="enr">E${a.stage}</span><span class="abnm">${esc(a.name)}</span><span class="tm">${esc(a.team)}</span></div>`).join('')
   }</div>`;
 }
-function setTab(t){ state.tab=t; render(); } window.setTab=setTab;
+function setTab(t){ state.tab=t; if(t!=='subklassement') spEdit=null; render(); } window.setTab=setTab;
 document.getElementById('q').addEventListener('input', e=>{ state.q=e.target.value; render(); });
+
+// ---------- Subklassement ----------
+function spLoad(){
+  try{ const raw=localStorage.getItem(SP_KEY); if(raw){ const o=JSON.parse(raw); spViews=o.views||[]; spActive=o.active||null; } }catch(e){ spViews=[]; }
+  if(spActive && !spViews.some(v=>v.id===spActive)) spActive=null;
+  if(!spActive && spViews.length) spActive=spViews[0].id;
+}
+function spSave(){ try{ localStorage.setItem(SP_KEY, JSON.stringify({views:spViews, active:spActive})); }catch(e){} }
+function spId(){ return 'v'+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function spRoster(){ return D.standings.map(r=>({id:r.id,name:r.name})).sort((a,b)=>a.name.localeCompare(b.name,'nl')); }
+function rankBy(arr, key){
+  const s=[...arr].sort((a,b)=>b[key]-a[key]);
+  const rankOf={}; let pv=null, pr=0;
+  s.forEach((o,i)=>{ const r=(pv!==null && o[key]===pv)?pr:i+1; rankOf[o.id]=r; pv=o[key]; pr=r; });
+  return rankOf;
+}
+function subStandings(mset){
+  const rows=D.standings.filter(r=>mset.has(r.id)).map(r=>({id:r.id,name:r.name,dag:r.dag,total:r.total,pt:r.pt}));
+  const cur=rankBy(rows,'total');
+  const withPt=rows.filter(r=>r.pt!=null);
+  const prev=rankBy(withPt,'pt');
+  return rows.map(r=>({...r, rank:cur[r.id], move:(r.pt!=null && prev[r.id]!=null)?(prev[r.id]-cur[r.id]):null}))
+             .sort((a,b)=>a.rank-b.rank || a.name.localeCompare(b.name,'nl'));
+}
+function subDagscore(mset){
+  const byId={}; D.dagscore.forEach(r=>byId[r.id]=r);
+  const rows=[...mset].map(id=>{ const b=D.standings.find(s=>s.id===id); const d=byId[id];
+     return {id, name:b?b.name:'?', score:d?d.score:0}; });
+  const cur=rankBy(rows,'score');
+  return rows.map(r=>({...r, rank:cur[r.id]})).sort((a,b)=>a.rank-b.rank || a.name.localeCompare(b.name,'nl'));
+}
+function subKlasTable(mset){
+  const rows=subStandings(mset);
+  return `<table><thead><tr><th class="rank">#</th><th class="mvcol"></th><th>Deelnemer</th><th class="num">Dag</th><th class="num">Totaal</th></tr></thead><tbody>${
+    rows.map(r=>`<tr><td class="rank ${rankClass(r.rank)}">${rankBadge(r.rank)}</td><td class="mvcol">${moveHtml(r.move)}</td><td class="wrap"><b>${esc(r.name)}</b></td><td class="num">${r.dag}</td><td class="num"><b>${r.total}</b></td></tr>`).join('')
+  }</tbody></table>`;
+}
+function subDagTable(mset){
+  if(!D.dagscore.length) return `<div class="empty">Nog geen dagscore voor deze etappe.</div>`;
+  const rows=subDagscore(mset);
+  return `<table><thead><tr><th class="rank">#</th><th>Deelnemer</th><th class="num">Punten</th></tr></thead><tbody>${
+    rows.map(r=>`<tr><td class="rank ${rankClass(r.rank)}">${rankBadge(r.rank)}</td><td class="wrap"><b>${esc(r.name)}</b></td><td class="num">${r.score}</td></tr>`).join('')
+  }</tbody></table>`;
+}
+function spEditorHtml(){
+  const sel=spEdit.members;
+  const items=spRoster().map(p=>`<div class="sp-item ${sel.has(p.id)?'sel':''}" data-id="${p.id}" data-n="${esc(norm(p.name))}" onclick="spToggle(this)"><span class="box">&#10003;</span><span>${esc(p.name)}</span></div>`).join('');
+  return `<div class="card">
+    <input class="sp-field" id="spName" type="text" placeholder="Naam van je subklassement" value="${esc(spEdit.name)}" maxlength="40">
+    <div class="search" style="margin-top:0;margin-bottom:10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input class="sp-field" id="spSearch" type="search" placeholder="Zoek deelnemer…" style="margin-bottom:0;padding-left:40px" oninput="spFilter(this.value)"></div>
+    <div class="sp-count" id="spCount">${sel.size} gekozen</div>
+    <div class="sp-list" id="spList">${items}</div>
+    <div class="sp-actions">
+      <button class="btn" onclick="spSaveEdit()">Opslaan</button>
+      <button class="btn ghost" onclick="spCancel()">Annuleren</button>
+      ${spEdit.id?'<button class="sp-del" onclick="spDeleteEdit()">Verwijderen</button>':''}
+    </div>
+  </div>`;
+}
+function tSubklassement(){
+  let html='';
+  if(spToast){ html+=`<div class="sp-toast">${esc(spToast)}</div>`; spToast=''; }
+  if(spEdit) return html + spEditorHtml();
+  if(!spViews.length){
+    return html + `<div class="card"><div class="sp-empty">
+      <div class="ic">👥</div>
+      <div class="t">Maak je eigen subklassement</div>
+      <div class="s">Kies bijvoorbeeld je familie of vrienden en volg hun onderlinge strijd. Je keuze wordt op dit apparaat bewaard.</div>
+      <button class="btn" onclick="spNew()">➕ Maak een subklassement</button>
+    </div></div>`;
+  }
+  const v=spViews.find(x=>x.id===spActive) || spViews[0];
+  spActive=v.id;
+  const chips=spViews.map(x=>`<button class="sp-chip ${x.id===v.id?'on':''}" onclick="spSelect('${x.id}')">${esc(x.name)}</button>`).join('')
+    + `<button class="sp-chip add" onclick="spNew()" aria-label="Nieuw subklassement">➕</button>`
+    + `<button class="sp-edit" onclick="spEditView('${v.id}')" aria-label="Bewerk subklassement">✏️</button>`;
+  const mset=new Set(v.members);
+  const seg=`<div class="seg"><button class="${spSub==='klassement'?'on':''}" onclick="spSetSub('klassement')">Klassement</button><button class="${spSub==='dagscore'?'on':''}" onclick="spSetSub('dagscore')">Dagscore</button></div>`;
+  let body;
+  if(!v.members.length){ body=`<div class="empty">Nog geen deelnemers gekozen. Tik op ✏️ om je subpoule samen te stellen.</div>`; }
+  else { body = (spSub==='dagscore') ? subDagTable(mset) : subKlasTable(mset); }
+  const share=v.members.length?`<div style="margin-top:12px"><button class="btn ghost" onclick="spShare('${v.id}')">🔗 Deel dit subklassement</button></div>`:'';
+  return html + `<div class="sp-chips">${chips}</div>${seg}<div class="card"><div class="tw">${body}</div></div>${share}`;
+}
+function spSelect(id){ spActive=id; spSave(); render(); }
+function spSetSub(s){ spSub=s; render(); }
+function spNew(){ spEdit={id:null, name:'', members:new Set()}; render(); }
+function spEditView(id){ const v=spViews.find(x=>x.id===id); if(!v)return; spEdit={id:v.id, name:v.name, members:new Set(v.members)}; render(); }
+function spToggle(el){
+  const id=parseInt(el.getAttribute('data-id'),10);
+  if(spEdit.members.has(id)){ spEdit.members.delete(id); el.classList.remove('sel'); }
+  else { spEdit.members.add(id); el.classList.add('sel'); }
+  const c=document.getElementById('spCount'); if(c){ c.textContent=spEdit.members.size+' gekozen'; c.style.color=''; }
+}
+function spFilter(q){
+  const nq=norm(q);
+  document.querySelectorAll('#spList .sp-item').forEach(el=>{
+    el.style.display=(!nq || el.getAttribute('data-n').includes(nq))?'':'none';
+  });
+}
+function spSaveEdit(){
+  const nameEl=document.getElementById('spName'); const name=(nameEl.value||'').trim();
+  if(!name){ nameEl.focus(); return; }
+  if(!spEdit.members.size){ const c=document.getElementById('spCount'); if(c){ c.textContent='Kies minstens één deelnemer'; c.style.color='var(--red)'; } return; }
+  const members=[...spEdit.members];
+  if(spEdit.id){ const v=spViews.find(x=>x.id===spEdit.id); if(v){ v.name=name; v.members=members; } spActive=spEdit.id; }
+  else { const id=spId(); spViews.push({id, name, members}); spActive=id; }
+  spEdit=null; spSave(); render();
+}
+function spCancel(){ spEdit=null; render(); }
+function spDeleteEdit(){
+  if(spEdit.id){ spViews=spViews.filter(x=>x.id!==spEdit.id); if(spActive===spEdit.id) spActive=spViews.length?spViews[0].id:null; }
+  spEdit=null; spSave(); render();
+}
+function spEncode(v){ return btoa(unescape(encodeURIComponent(JSON.stringify({n:v.name, m:v.members})))); }
+function spDecode(s){ try{ return JSON.parse(decodeURIComponent(escape(atob(s)))); }catch(e){ return null; } }
+function spShare(id){
+  const v=spViews.find(x=>x.id===id); if(!v)return;
+  const url=location.origin+location.pathname+'#sub='+spEncode(v);
+  if(navigator.share){ navigator.share({title:'Subklassement '+v.name, url}).catch(()=>{}); return; }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(()=>{ spToast='Deel-link gekopieerd naar klembord.'; render(); },
+                                            ()=>{ window.prompt('Kopieer de link:', url); });
+  } else { window.prompt('Kopieer de link:', url); }
+}
+function spImportFromHash(){
+  const m=(location.hash||'').match(/sub=([^&]+)/);
+  if(!m) return;
+  const o=spDecode(m[1]);
+  try{ history.replaceState(null,'', location.pathname+location.search); }catch(e){}
+  if(!o || !o.n || !Array.isArray(o.m)) return;
+  const members=o.m.filter(x=>typeof x==='number');
+  // Al aanwezig (zelfde leden)? Dan niet dupliceren, maar activeren — zo maakt
+  // een reload met dezelfde link geen kopie als de hash niet gewist kon worden.
+  const key=[...members].sort((a,b)=>a-b).join(',');
+  const same=spViews.find(v=>[...v.members].sort((a,b)=>a-b).join(',')===key);
+  if(same){ spActive=same.id; spSave(); state.tab='subklassement'; return; }
+  let name=String(o.n).slice(0,40);
+  if(spViews.some(v=>v.name===name)){ let i=2; while(spViews.some(v=>v.name===name+' ('+i+')')) i++; name=name+' ('+i+')'; }
+  const id=spId();
+  spViews.push({id, name, members});
+  spActive=id; spSave();
+  spToast='Subklassement “'+name+'” toegevoegd.';
+  state.tab='subklassement';
+}
+window.spNew=spNew; window.spSelect=spSelect; window.spSetSub=spSetSub; window.spEditView=spEditView;
+window.spToggle=spToggle; window.spFilter=spFilter; window.spSaveEdit=spSaveEdit; window.spCancel=spCancel;
+window.spDeleteEdit=spDeleteEdit; window.spShare=spShare;
 
 function tTussenstand(q){
   const rows = D.standings.filter(r=>!q||norm(r.name).includes(q));
@@ -173,11 +365,18 @@ function tUitslag(q){
 function render(){
   document.getElementById('tabs').innerHTML = TABS.map(t=>
     `<button class="${t.id===state.tab?'on':''}" onclick="setTab('${t.id}')">${t.label}</button>`).join('');
+  // De zoekbalk bovenaan is niet van toepassing op het subklassement (dat heeft z'n eigen zoekveld).
+  const sb=document.querySelector('header .search'); if(sb) sb.style.display=(state.tab==='subklassement')?'none':'';
   const q=norm(state.q);
-  let html = state.tab==='dagscore'?tDagscore(q):state.tab==='uitslag'?tUitslag(q):tTussenstand(q);
+  let html = state.tab==='dagscore'?tDagscore(q)
+           : state.tab==='uitslag'?tUitslag(q)
+           : state.tab==='subklassement'?tSubklassement()
+           : tTussenstand(q);
   document.getElementById('app').innerHTML = html + `<div class="meta-foot">Bijgewerkt: ${esc(D.generated_at)}</div>`;
 }
 applyTheme(document.documentElement.getAttribute('data-theme') || 'dark');
+spLoad();
+spImportFromHash();
 render();
 </script>
 </body>
