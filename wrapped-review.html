@@ -81,6 +81,8 @@ html,body{margin:0;height:100%;background:#000;color:var(--txt);
 .clink{display:block;background:var(--accent);color:#141414;text-decoration:none;font-weight:800;
   padding:15px;border-radius:14px;font-size:16px}
 .clink.sec{background:var(--panel2);color:var(--txt);border:1px solid var(--line)}
+.restart{background:none;border:none;color:var(--muted);text-decoration:underline;
+  font-size:13px;margin-top:16px;cursor:pointer}
 /* deelbare kaart */
 .sharecard{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);
   border-radius:22px;padding:20px 20px 18px;width:100%;max-width:340px;
@@ -162,7 +164,7 @@ function buildProfile(){
   const fill='M-120,'+H+' L-120,'+ridge[0][1].toFixed(1)+' '+pstr+' L'+totalW+','+H+' Z';
   const outline='M-120,'+ridge[0][1].toFixed(1)+' '+pstr;
   // Start-vlag aan het begin, Eiffeltoren aan het eind — beide bovenop de gele lijn.
-  const startX=18, eiffelX=Math.min(totalW-30, (n-1)*STEP + deckW - 60);
+  const startX=Math.round(deckW*0.25), eiffelX=Math.min(totalW-30, (n-1)*STEP + deckW - 60);
   const gY=ridgeYat(startX);
   const startIcon=`<g transform="translate(${startX},${gY})">`
     +`<line x1="0" y1="0" x2="0" y2="-48" stroke="var(--accent)" stroke-width="3"/>`
@@ -260,8 +262,9 @@ function render(c){
     extra=confetti();
     inner=`<img class="logo anim" src="${LOGO}" style="width:150px"><div class="title anim2" style="font-size:34px">${c.title}</div>`
       +`<div class="sub anim2">${c.sub}</div><div class="clinks anim3">`
-      +`<a class="clink" href="onthulling.html">🎬 De grote onthulling (A)</a>`
-      +`<a class="clink sec" href="eindstand.html">📊 De volledige eindstand (C)</a></div>`;
+      +`<a class="clink" href="onthulling.html">🎬 De grote onthulling</a>`
+      +`<a class="clink sec" href="eindstand.html">📊 De volledige eindstand</a></div>`
+      +`<button class="restart anim3" onclick="idx=0;show();">Bekijk mijn Wrapped opnieuw</button>`;
   }
   return `<div class="card on">${extra}${inner}<div class="hint">tik rechts →</div></div>`;
 }
