@@ -13,14 +13,16 @@ html,body{margin:0;height:100%;background:#000;color:var(--txt);
 .card{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
   align-items:center;text-align:center;padding:calc(58px + env(safe-area-inset-top)) 26px
   calc(40px + env(safe-area-inset-bottom));gap:14px}
-.card.on{display:flex}
-/* achtergrond: bewegende weg-strepen + bergsilhouet */
-.road{position:absolute;left:0;right:0;bottom:0;height:64px;overflow:hidden;opacity:.5}
-.road::before{content:"";position:absolute;bottom:26px;left:-40%;width:180%;height:3px;
-  background:repeating-linear-gradient(90deg,var(--muted) 0 22px,transparent 22px 46px);
-  animation:road 1.1s linear infinite}
-@keyframes road{to{transform:translateX(-46px)}}
-.mtn{position:absolute;left:0;right:0;bottom:0;height:120px;opacity:.16;pointer-events:none}
+.card.on{display:flex;z-index:2}
+/* Doorlopend routeprofiel: één lang profiel dat over alle kaarten heen schuift */
+.profile{position:absolute;left:0;right:0;bottom:0;height:152px;overflow:hidden;z-index:1;pointer-events:none}
+.profile-track{position:absolute;bottom:0;left:0;transition:transform .8s cubic-bezier(.35,.05,.15,1)}
+.profile-art{animation:drift 13s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-32px)}}
+.profile svg{display:block}
+.route-road{stroke:var(--muted);stroke-width:2;stroke-dasharray:20 22;opacity:.5;
+  animation:rdash 1.1s linear infinite}
+@keyframes rdash{to{stroke-dashoffset:-42}}
 /* voortgangs-segmenten */
 .bars{position:absolute;top:calc(10px + env(safe-area-inset-top));left:12px;right:12px;
   display:flex;gap:5px;z-index:6}
@@ -81,16 +83,32 @@ html,body{margin:0;height:100%;background:#000;color:var(--txt);
 .clink.sec{background:var(--panel2);color:var(--txt);border:1px solid var(--line)}
 /* deelbare kaart */
 .sharecard{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);
-  border-radius:22px;padding:22px;width:100%;max-width:330px;box-shadow:0 20px 50px rgba(0,0,0,.5);text-align:left}
-.sc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.sc-top img{height:24px;background:#fff;border-radius:6px;padding:3px 6px}
-.sc-top span{color:var(--accent);font-weight:800;font-size:12px;letter-spacing:.08em}
-.sc-name{font-size:22px;font-weight:800}
-.sc-pos{font-size:70px;font-weight:900;line-height:1;color:var(--accent)}
-.sc-pos span{font-size:26px}
-.sc-lab{color:var(--muted);font-size:14px;margin-bottom:14px}
-.sc-row{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);
-  padding-top:12px;font-weight:700;font-size:14px}
+  border-radius:22px;padding:20px 20px 18px;width:100%;max-width:340px;
+  box-shadow:0 20px 50px rgba(0,0,0,.5);text-align:center}
+.sc-top{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px}
+.sc-top img{height:30px;background:#fff;border-radius:7px;padding:4px 7px}
+.sc-top span{color:var(--accent);font-weight:800;font-size:12px;line-height:1.15;
+  letter-spacing:.05em;text-align:left}
+.sc-name{font-size:20px;font-weight:800}
+.sc-pos{font-size:66px;font-weight:900;line-height:1;color:var(--accent)}
+.sc-pos span{font-size:24px}
+.sc-lab{color:var(--muted);font-size:14px}
+.sc-persona{font-weight:800;font-size:16px;margin:8px 0 2px}
+.sc-uni{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}
+.sc-uni-h{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.sc-uni-row{display:flex;justify-content:space-between;font-size:14px;font-weight:700;padding:2px 4px}
+.sc-uni-row span:last-child{color:var(--accent)}
+/* teamlijst (hele team / ideale opstelling) */
+.teamlist{list-style:none;padding:0;margin:8px 0 0;width:100%;max-width:380px;
+  column-count:2;column-gap:16px}
+.teamlist li{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:12.5px;break-inside:avoid}
+.tl-rank{color:var(--muted);width:18px;text-align:right;font-variant-numeric:tabular-nums;flex:0 0 auto}
+.tl-nm{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
+.tl-pts{color:var(--accent);font-weight:800;font-variant-numeric:tabular-nums;flex:0 0 auto}
+.tl-tag{font-size:8.5px;padding:1px 4px;border-radius:4px;font-weight:800;flex:0 0 auto}
+.tl-tag.b{background:rgba(246,212,23,.2);color:var(--accent)}
+.tl-tag.r{background:var(--panel2);color:var(--muted)}
+.tl-sub{color:var(--muted);font-size:13px;margin-top:4px;max-width:26ch}
 .tagtext{font-size:34px;font-weight:900;line-height:1.15;max-width:15ch}
 .roast{font-size:30px;font-weight:900;line-height:1.22;max-width:17ch;font-style:italic}
 /* confetti */
@@ -102,18 +120,40 @@ html,body{margin:0;height:100%;background:#000;color:var(--txt);
 </style></head>
 <body>
 <div class="deck" id="deck">
+  <div class="profile" id="profile"><div class="profile-track" id="ptrack"></div></div>
   <div class="bars" id="bars"></div>
   <div class="zone l" id="zl"></div>
   <div class="zone r" id="zr"></div>
 </div>
 <script>
-const CARDS = [{"type": "intro", "title": "Jouw Bissusconi<br>Wrapped", "sub": "Marije Peters · Tour 2025"}, {"type": "graph", "kicker": "Jouw hele Tour in één lijn", "stages": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], "ranks": [59, 11, 5, 8, 16, 19, 19, 14, 15, 23, 25, 21, 18, 19, 15, 21, 20, 11, 12, 13, 14], "npart": 84, "quote": "Van start tot Parijs — zo bewoog jij door het klassement."}, {"type": "tagline", "kicker": "Jouw Tour in één zin", "text": "Je begon als 59e en knokte je naar 16e — een klim om trots op te zijn."}, {"type": "duo", "kicker": "Je hoogtepunt en je dieptepunt", "a": {"big": "5e", "lab": "hoogste plek · na etappe 3"}, "b": {"big": "59e", "lab": "laagste plek · na etappe 1"}, "quote": "Dit had niemand zien aankomen."}, {"type": "duo", "kicker": "Je beste en je slechtste dag", "a": {"big": "125", "lab": "punten in etappe 13 ⭐"}, "b": {"big": "12", "lab": "punten in etappe 20 💤"}, "quote": "De ene dag hero, de andere dag zero."}, {"type": "stat", "kicker": "Je eindklassering", "big": "16e", "unit": "van 84", "label": "Beter dan 82% van de poule", "quote": "Kijk dat nou toch eens!"}, {"type": "rider", "kicker": "Je bankheld", "rider": "YATES Adam", "team": "UAE Team Emirates - XRG", "big": "36", "label": "punten vanaf de bank", "quote": "Ingevallen en geleverd. Wat een luxe reserve!"}, {"type": "rider", "kicker": "De bank-verpieteraar", "rider": "ONLEY Oscar", "team": "Team Picnic PostNL", "big": "154", "label": "punten pakte 'ie — maar niet voor jou", "quote": "De hele Tour op de bank. Sneu, maar waar."}, {"type": "rider", "kicker": "De renner die je liet lopen", "rider": "LIPOWITZ Florian", "team": "Red Bull - BORA - hansgrohe", "big": "131", "label": "punten — en jij had 'm niet", "quote": "Die had je moeten hebben. Volgend jaar beter."}, {"type": "stat", "kicker": "Punten die je liet liggen", "big": "329", "unit": "punten", "label": "had je optimale opstelling extra opgeleverd", "quote": "Met de kennis van nu…"}, {"type": "list", "kicker": "Je voorspel-rapport", "title": "2 van 8 goed", "items": ["Gele trui", "Bolletjestrui"], "quote": "De volgende keer beter kijken 😉"}, {"type": "stat", "kicker": "Je poule-tweeling", "big": "15", "unit": "van 20", "label": "renners gedeeld met Ineke van den Top", "quote": "Twee handen op één buik."}, {"type": "share", "name": "Marije Peters", "pos": 16, "npart": 84, "persona": "Mr. Consistent", "emoji": "📏", "top": "POGAČAR Tadej", "topp": 269, "total": 1576}, {"type": "badge", "name": "Mr. Consistent", "emoji": "📏", "desc": "Elke dag stipt je punten pakken. Een uurwerk."}, {"type": "closer", "title": "Tot volgend jaar!", "sub": "Klaar met jouw Tour? Bekijk de rest van de uitslag."}];
+const CARDS = [{"type": "intro", "title": "Jouw Bissusconi<br>Wrapped", "sub": "Marije Peters · Tour 2025"}, {"type": "graph", "kicker": "Jouw hele Tour in één lijn", "stages": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], "ranks": [59, 11, 5, 8, 16, 19, 19, 14, 15, 23, 25, 21, 18, 19, 15, 21, 20, 11, 12, 13, 14], "npart": 84, "quote": "Van start tot Parijs — zo bewoog jij door het klassement."}, {"type": "tagline", "kicker": "Jouw Tour in één zin", "text": "Je begon als 59e en knokte je naar 16e — een klim om trots op te zijn."}, {"type": "duo", "kicker": "Je hoogtepunt en je dieptepunt", "a": {"big": "5e", "lab": "hoogste plek · na etappe 3"}, "b": {"big": "59e", "lab": "laagste plek · na etappe 1"}, "quote": "Jouw ploeg reed als een gepensioneerde postbode."}, {"type": "duo", "kicker": "Je beste en je slechtste dag", "a": {"big": "125", "lab": "punten in etappe 13 ⭐"}, "b": {"big": "12", "lab": "punten in etappe 20 💤"}, "quote": "De ene dag hero, de andere dag zero."}, {"type": "stat", "kicker": "Je eindklassering", "big": "16e", "unit": "van 84", "label": "Beter dan 82% van de poule", "quote": "Beter dan de meesten. Dat mag gezegd."}, {"type": "rider", "kicker": "Je bankheld", "rider": "YATES Adam", "team": "UAE Team Emirates - XRG", "big": "36", "label": "punten vanaf de bank", "quote": "Ingevallen en geleverd. Wat een luxe reserve!"}, {"type": "rider", "kicker": "De bank-verpieteraar", "rider": "ONLEY Oscar", "team": "Team Picnic PostNL", "big": "154", "label": "punten pakte 'ie — maar niet voor jou", "quote": "De hele Tour op de bank. Sneu, maar waar."}, {"type": "stat", "kicker": "Punten die je liet liggen", "big": "329", "unit": "punten", "label": "had je optimale opstelling extra opgeleverd", "quote": "Met de kennis van nu…"}, {"type": "teamlist", "kicker": "Je hele team", "subtitle": "Alle 20 renners op punten · B = basis, R = reserve", "rows": [{"rank": 1, "name": "POGAČAR Tadej", "pts": 269, "tag": "B", "tagcls": "b"}, {"rank": 2, "name": "VINGEGAARD Jonas", "pts": 214, "tag": "B", "tagcls": "b"}, {"rank": 3, "name": "VAUQUELIN Kévin", "pts": 129, "tag": "B", "tagcls": "b"}, {"rank": 4, "name": "JORGENSON Matteo", "pts": 123, "tag": "B", "tagcls": "b"}, {"rank": 5, "name": "EVENEPOEL Remco", "pts": 98, "tag": "B", "tagcls": "b"}, {"rank": 6, "name": "ROGLIČ Primož", "pts": 95, "tag": "B", "tagcls": "b"}, {"rank": 7, "name": "MILAN Jonathan", "pts": 94, "tag": "B", "tagcls": "b"}, {"rank": 8, "name": "VAN AERT Wout", "pts": 91, "tag": "B", "tagcls": "b"}, {"rank": 9, "name": "JOHANNESSEN Tobias Halland", "pts": 86, "tag": "B", "tagcls": "b"}, {"rank": 10, "name": "VAN DER POEL Mathieu", "pts": 83, "tag": "B", "tagcls": "b"}, {"rank": 11, "name": "ALAPHILIPPE Julian", "pts": 55, "tag": "B", "tagcls": "b"}, {"rank": 12, "name": "BAUHAUS Phil", "pts": 52, "tag": "B", "tagcls": "b"}, {"rank": 13, "name": "MERLIER Tim", "pts": 50, "tag": "B", "tagcls": "b"}, {"rank": 14, "name": "YATES Adam", "pts": 36, "tag": "R", "tagcls": "r"}, {"rank": 15, "name": "O'CONNOR Ben", "pts": 34, "tag": "R", "tagcls": "r"}, {"rank": 16, "name": "GROENEWEGEN Dylan", "pts": 26, "tag": "B", "tagcls": "b"}, {"rank": 17, "name": "PHILIPSEN Jasper", "pts": 25, "tag": "B", "tagcls": "b"}, {"rank": 18, "name": "YATES Simon", "pts": 16, "tag": "R", "tagcls": "r"}, {"rank": 19, "name": "GALL Felix", "pts": 0, "tag": "R", "tagcls": "r"}, {"rank": 20, "name": "ONLEY Oscar", "pts": 0, "tag": "R", "tagcls": "r"}]}, {"type": "teamlist", "kicker": "Je ideale opstelling (achteraf)", "subtitle": "Zó had je ze moeten neerzetten — 329 punten meer", "rows": [{"rank": 1, "name": "POGAČAR Tadej", "pts": 269, "tag": "BASIS", "tagcls": "b"}, {"rank": 2, "name": "VINGEGAARD Jonas", "pts": 214, "tag": "BASIS", "tagcls": "b"}, {"rank": 3, "name": "ONLEY Oscar", "pts": 154, "tag": "BASIS", "tagcls": "b"}, {"rank": 4, "name": "VAUQUELIN Kévin", "pts": 129, "tag": "BASIS", "tagcls": "b"}, {"rank": 5, "name": "JORGENSON Matteo", "pts": 123, "tag": "BASIS", "tagcls": "b"}, {"rank": 6, "name": "GALL Felix", "pts": 103, "tag": "BASIS", "tagcls": "b"}, {"rank": 7, "name": "EVENEPOEL Remco", "pts": 98, "tag": "BASIS", "tagcls": "b"}, {"rank": 8, "name": "ROGLIČ Primož", "pts": 95, "tag": "BASIS", "tagcls": "b"}, {"rank": 9, "name": "MILAN Jonathan", "pts": 94, "tag": "BASIS", "tagcls": "b"}, {"rank": 10, "name": "VAN AERT Wout", "pts": 91, "tag": "BASIS", "tagcls": "b"}, {"rank": 11, "name": "JOHANNESSEN Tobias Halland", "pts": 86, "tag": "BASIS", "tagcls": "b"}, {"rank": 12, "name": "VAN DER POEL Mathieu", "pts": 83, "tag": "BASIS", "tagcls": "b"}, {"rank": 13, "name": "O'CONNOR Ben", "pts": 62, "tag": "BASIS", "tagcls": "b"}, {"rank": 14, "name": "YATES Simon", "pts": 60, "tag": "BASIS", "tagcls": "b"}, {"rank": 15, "name": "ALAPHILIPPE Julian", "pts": 55, "tag": "BASIS", "tagcls": "b"}, {"rank": 16, "name": "BAUHAUS Phil", "pts": 52, "tag": "RES", "tagcls": "r"}, {"rank": 17, "name": "MERLIER Tim", "pts": 50, "tag": "RES", "tagcls": "r"}, {"rank": 18, "name": "YATES Adam", "pts": 36, "tag": "RES", "tagcls": "r"}, {"rank": 19, "name": "GROENEWEGEN Dylan", "pts": 26, "tag": "RES", "tagcls": "r"}, {"rank": 20, "name": "PHILIPSEN Jasper", "pts": 25, "tag": "RES", "tagcls": "r"}]}, {"type": "list", "kicker": "Jouw unieke puntenpakkers", "title": "Weinig gekozen, wél geleverd", "items": ["JOHANNESSEN Tobias Halland · 86p · door 14 teams gekozen", "BAUHAUS Phil · 52p · door 7 teams gekozen"], "quote": "Durf te kiezen. Jij deed het — en het pakte uit."}, {"type": "badge", "name": "Mr. Consistent", "emoji": "📏", "desc": "Elke dag stipt je punten pakken. Een uurwerk."}, {"type": "share", "name": "Marije Peters", "pos": 16, "npart": 84, "persona": "Mr. Consistent", "emoji": "📏", "total": 1576, "unique": [{"name": "JOHANNESSEN Tobias Halland", "pts": 86}, {"name": "BAUHAUS Phil", "pts": 52}]}, {"type": "closer", "title": "Tot volgend jaar!", "sub": "Klaar met jouw Tour? Bekijk de rest van de uitslag."}];
 const LOGO = "data:image/png;base64,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";
 const deck = document.getElementById('deck');
 let idx = 0;
 
-function mtn(){return `<svg class="mtn" viewBox="0 0 400 120" preserveAspectRatio="none"><path d="M0 120 L60 60 L110 90 L170 30 L230 80 L300 20 L360 70 L400 40 L400 120 Z" fill="var(--accent)"/></svg>`;}
-function road(){return `<div class="road"></div>`;}
+let STEP = 0;
+function srand(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function buildProfile(){
+  const deckW = deck.clientWidth || 380;
+  const n = CARDS.length, H = 152, seg = 60;
+  STEP = Math.round(deckW * 0.6);
+  const totalW = deckW + STEP*(n-1) + 220;
+  const cols = Math.ceil(totalW/seg);
+  const rnd = srand(20250714);
+  const peaks=[]; let px=3;
+  while(px<cols){ peaks.push([px + rnd()*2, 42+rnd()*82]); px += 4 + Math.floor(rnd()*6); }
+  function bump(i){let m=0;for(const p of peaks){const d=(i-p[0])/2.5;m+=p[1]*Math.exp(-d*d);}return m;}
+  const ridge=[];
+  for(let i=0;i<=cols;i++){ const yy=H-(16+7*Math.sin(i*0.5)+bump(i)); ridge.push([i*seg, Math.max(8,yy)]); }
+  const fill='M0,'+H+' '+ridge.map(p=>'L'+p[0].toFixed(0)+','+p[1].toFixed(1)).join(' ')+' L'+totalW+','+H+' Z';
+  const outline='M'+ridge.map(p=>p[0].toFixed(0)+','+p[1].toFixed(1)).join(' L');
+  const svg=`<svg width="${totalW}" height="${H}" viewBox="0 0 ${totalW} ${H}">`
+    +`<path d="${fill}" fill="var(--accent)" opacity="0.14"/>`
+    +`<path d="${outline}" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.35"/>`
+    +`<line class="route-road" x1="0" y1="${H-4}" x2="${totalW}" y2="${H-4}"/></svg>`;
+  document.getElementById('ptrack').innerHTML = `<div class="profile-art">${svg}</div>`;
+}
+function moveProfile(){ document.getElementById('ptrack').style.transform = `translateX(${-idx*STEP}px)`; }
 
 function chartSVG(stages, ranks, npart){
   const pts=[]; for(let i=0;i<stages.length;i++){ if(ranks[i]!=null) pts.push({s:stages[i],v:ranks[i]}); }
@@ -143,13 +183,12 @@ function confetti(){
 }
 
 function render(c){
-  let inner='', bg=road();
+  let inner='', extra='';
   if(c.type==='intro'){
     inner=`<img class="logo anim" src="${LOGO}"><div class="title anim2">${c.title}</div><div class="sub anim3">${c.sub}</div>`;
   } else if(c.type==='stat'){
-    const conf = (/eindklass/i.test(c.kicker))?confetti():'';
-    if(/eindklass|berg|sterkste/i.test(c.kicker)) bg=mtn()+bg;
-    inner=`${conf}<div class="kicker anim">${c.kicker}</div><div class="big anim2" data-num="${c.big}">${c.big}</div>`
+    if(/eindklass/i.test(c.kicker)) extra=confetti();
+    inner=`<div class="kicker anim">${c.kicker}</div><div class="big anim2" data-num="${c.big}">${c.big}</div>`
       +(c.unit?`<div class="unit anim2">${c.unit}</div>`:'')
       +`<div class="label anim3">${c.label}</div>`;
   } else if(c.type==='duo'){
@@ -163,8 +202,14 @@ function render(c){
   } else if(c.type==='list'){
     inner=`<div class="kicker anim">${c.kicker}</div><div class="title anim2" style="font-size:32px">${c.title}</div>`
       +`<ul class="items anim3">`+c.items.map(x=>`<li>${x}</li>`).join('')+`</ul>`;
+  } else if(c.type==='teamlist'){
+    inner=`<div class="kicker anim">${c.kicker}</div>`
+      +(c.subtitle?`<div class="tl-sub anim">${c.subtitle}</div>`:'')
+      +`<ol class="teamlist anim2">`+c.rows.map(r=>`<li><span class="tl-rank">${r.rank}</span>`
+        +`<span class="tl-nm">${r.name}</span>`
+        +(r.tag?`<span class="tl-tag ${r.tagcls}">${r.tag}</span>`:'')
+        +`<span class="tl-pts">${r.pts}</span></li>`).join('')+`</ol>`;
   } else if(c.type==='badge'){
-    bg=mtn()+bg;
     inner=`<div class="kicker anim">Jouw Bissusconi-type</div><div class="badge-emoji anim2">${c.emoji}</div>`
       +`<div class="badge-name anim2">${c.name}</div><div class="badge-desc anim3">${c.desc}</div>`;
   } else if(c.type==='graph'){
@@ -174,22 +219,24 @@ function render(c){
   } else if(c.type==='quote'){
     inner=`<div class="kicker anim">${c.kicker}</div><div class="roast anim2">“${c.text}”</div>`;
   } else if(c.type==='share'){
-    bg=mtn()+bg;
+    const uni=(c.unique||[]).map(u=>`<div class="sc-uni-row"><span>${u.name}</span><span>${u.pts}p</span></div>`).join('');
     inner=`<div class="kicker anim">Deel je Wrapped</div>`
-      +`<div class="sharecard anim2"><div class="sc-top"><img src="${LOGO}"><span>WRAPPED 2025</span></div>`
+      +`<div class="sharecard anim2"><div class="sc-top"><img src="${LOGO}"><span>Bissusconi Tourpoule<br>Wrapped · 2025</span></div>`
       +`<div class="sc-name">${c.name}</div><div class="sc-pos">${c.pos}<span>e</span></div>`
       +`<div class="sc-lab">van ${c.npart} · ${c.total} punten</div>`
-      +`<div class="sc-row"><span>${c.emoji} ${c.persona}</span><span>👑 ${c.top}</span></div></div>`
-      +`<button class="clink anim3" style="max-width:330px" onclick="alert('In het echt: kaart opslaan of delen')">📲 Deel je kaart</button>`;
+      +`<div class="sc-persona">${c.emoji} ${c.persona}</div>`
+      +(uni?`<div class="sc-uni"><div class="sc-uni-h">Jouw unieke puntenpakkers</div>${uni}</div>`:'')
+      +`</div>`
+      +`<button class="clink anim3" style="max-width:340px" onclick="alert('In het echt: kaart opslaan of delen')">📲 Deel je kaart</button>`;
   } else if(c.type==='closer'){
-    bg=confetti()+mtn()+bg;
+    extra=confetti();
     inner=`<img class="logo anim" src="${LOGO}" style="width:150px"><div class="title anim2" style="font-size:34px">${c.title}</div>`
       +`<div class="sub anim2">${c.sub}</div><div class="clinks anim3">`
       +`<a class="clink" href="#onthulling">🎬 De grote onthulling (A)</a>`
       +`<a class="clink sec" href="#eindtabel">📊 De volledige eindstand (C)</a></div>`;
   }
   const q = c.quote?`<div class="quote anim3">“${c.quote}”</div>`:'';
-  return `<div class="card on">${bg}${inner}${q}<div class="hint">tik rechts →</div></div>`;
+  return `<div class="card on">${extra}${inner}${q}<div class="hint">tik rechts →</div></div>`;
 }
 
 function bars(){
@@ -211,6 +258,7 @@ function show(){
   document.getElementById('zl').insertAdjacentHTML('beforebegin', html);
   if(idx>0){const h=document.querySelector('.hint'); if(h) h.remove();}
   bars();
+  moveProfile();
   document.querySelectorAll('[data-num]').forEach(countUp);
 }
 function next(){ if(idx<CARDS.length-1){idx++;show();} }
@@ -218,6 +266,8 @@ function prev(){ if(idx>0){idx--;show();} }
 document.getElementById('zr').onclick=next;
 document.getElementById('zl').onclick=prev;
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')next();if(e.key==='ArrowLeft')prev();});
+let _rt; window.addEventListener('resize',()=>{clearTimeout(_rt);_rt=setTimeout(()=>{buildProfile();moveProfile();},200);});
+buildProfile();
 show();
 </script>
 </body></html>
