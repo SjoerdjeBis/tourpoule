@@ -58,6 +58,7 @@
      er geen twee lege lijnen overblijven. */
   .tabs{display:flex;gap:14px;margin-top:10px;padding-top:10px;padding-bottom:10px;
     border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    box-shadow:0 6px 8px -6px rgba(0,0,0,.22);
     overflow-x:auto;-webkit-overflow-scrolling:touch}
   .tabs:empty{display:none}
   .tabs button{flex:0 0 auto;background:none;border:none;color:var(--muted);padding:8px 2px;
@@ -432,10 +433,15 @@ function viewAlltime(q){
 function fitBigTables(){
   document.querySelectorAll('.bigwrap').forEach(bw=>{
     if(bw.closest('.statcard-wide')) return;
+    // Meet op natuurlijke hoogte hoeveel de PAGINA overloopt en krimp de tabel
+    // met precies dat bedrag. Zo past de tabel altijd binnen het scherm, los van
+    // de hoogte van de header, de onder-marge van <main> of de safe-area van de
+    // telefoon — geen vast reservegetal meer dat kan verschuiven (bv. door een
+    // extra streep onder het tabmenu). De -2 laat een minieme kier.
     bw.style.maxHeight = '';
-    const top = bw.getBoundingClientRect().top;
-    const avail = window.innerHeight - top - 56;   // ruimte voor de 'Bijgewerkt'-regel
-    bw.style.maxHeight = Math.max(240, avail) + 'px';
+    const overflow = document.documentElement.scrollHeight - window.innerHeight;
+    const target = bw.getBoundingClientRect().height - overflow - 2;
+    bw.style.maxHeight = Math.max(240, target) + 'px';
   });
 }
 window.fitBigTables = fitBigTables;
