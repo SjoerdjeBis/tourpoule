@@ -12,12 +12,14 @@
     --txt:#e8eaed; --muted:#9aa3b2;
     --accent:#ffd60a; --accent-ink:#ffd60a; --green:#36d399; --red:#f87272;
     --rank2:#cdd3dd; --rank3:#e0a878; --header-bg:rgba(15,17,21,.92); --radius:14px;
+    --fam-open-bg:#2b313d;
   }
   html[data-theme="light"]{
     --bg:#f5f6f8; --panel:#ffffff; --panel2:#eceff3; --line:#dfe3e8;
     --txt:#1b1e25; --muted:#647080;
     --accent:#ffd60a; --accent-ink:#9a7400; --green:#1a7f4b; --red:#d23b3b;
     --rank2:#8a93a3; --rank3:#b5793b; --header-bg:rgba(245,246,248,.92);
+    --fam-open-bg:#eceff3;
   }
   *{box-sizing:border-box} html,body{margin:0;padding:0}
   body{background:var(--bg);color:var(--txt);overflow-x:hidden;
@@ -143,6 +145,20 @@
   .sp-del{background:none;border:none;color:var(--red);font-size:13px;font-weight:600;cursor:pointer;padding:10px 6px}
   .sp-toast{background:rgba(54,211,153,.14);border:1px solid transparent;color:var(--green);
     border-radius:10px;padding:10px 12px;font-size:13px;margin-bottom:12px}
+  /* Familiestrijd */
+  /* Uitgeklapte familie: kop-rij en ledenblok vormen visueel één geheel —
+     zelfde achtergrond, een accent-balk die er links langs loopt, en een
+     dikke lijn eronder die het blok afsluit. */
+  tr.famrow.open>td{background:var(--fam-open-bg);border-bottom:none}
+  tr.famrow.open>td:first-child{border-left:3px solid var(--accent)}
+  .fam-detailrow>td{padding:0;border-bottom:2px solid var(--line)}
+  .fam-detail{background:var(--fam-open-bg);border-left:3px solid var(--accent)}
+  .fam-sub{width:100%;border-collapse:collapse}
+  .fam-sub td{border-bottom:1px solid var(--line);padding:7px 6px;white-space:nowrap}
+  .fam-sub tr:last-child td{border-bottom:none}
+  .fam-sub td.wrap{white-space:normal;width:99%}
+  .fam-sub td.fam-r{padding-left:50px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .fam-sub td.fam-s{text-align:right;padding-right:22px;font-variant-numeric:tabular-nums}
   /* Klassementsverloop-grafiek (klik op een naam in de tussenstand) */
   .dhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:6px 0 10px}
   .dhead .nm{font-size:20px;font-weight:800}
