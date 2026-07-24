@@ -109,6 +109,20 @@
   .linkrow.atbtn{border:3px solid var(--accent);font-weight:800;margin-top:14px}
   .linkrow.atbtn .ic{font-size:19px}
   .linkrow.atbtn .chev{color:var(--accent-ink)}
+  /* Jaar-index: etappes als compact tegelraster (i.p.v. een lange rijenlijst).
+     auto-fill houdt de tegels ~vierkant en klein op elk scherm: ~4 per rij op
+     mobiel, meer op een breed scherm. De nieuwste etappe krijgt een gele rand. */
+  .stagegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));
+    gap:8px;margin-bottom:8px}
+  .stile{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:5px;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;text-decoration:none;color:var(--txt);
+    transition:transform 140ms cubic-bezier(.23,1,.32,1)}
+  .stile:active{transform:scale(.95)}
+  .stnum{font-size:18px;font-weight:700;line-height:1}
+  .stico{display:flex;color:var(--muted);line-height:0}
+  .stile.now{border:2px solid var(--accent);background:rgba(255,214,10,.14)}
+  .stile.now .stnum,.stile.now .stico{color:var(--accent-ink)}
   /* Subklassement */
   .sp-empty{text-align:center;padding:26px 14px}
   .sp-empty .ic{font-size:30px}
@@ -178,7 +192,7 @@
     transition:opacity 220ms cubic-bezier(.23,1,.32,1), transform 220ms cubic-bezier(.23,1,.32,1)}
   @starting-style{ .detail{opacity:0; transform:scale(var(--enter-scale))} }
   @media (prefers-reduced-motion: reduce){
-    .tabs button:active, tbody tr[role="button"]:active{transform:none}
+    .tabs button:active, tbody tr[role="button"]:active, .stile:active{transform:none}
     .detail{--enter-scale:1}
   }
 
