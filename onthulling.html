@@ -154,9 +154,19 @@ const TEXTS = {
 };
 (function(){
   var esc=function(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
-  document.querySelectorAll('.textslot[data-key], .textslot-inline[data-key]').forEach(function(el){
+  document.querySelectorAll('.textslot[data-key]').forEach(function(el){
+    // Losstaande scroll-sectie (bv. bij een categorie of de winnaar): leeg
+    // gebleven -> het hele scrolldeel blijft verborgen, geen ✏️-plaatsvoegertje.
     var val=(TEXTS[el.getAttribute('data-key')]||'').trim();
     if(val) el.innerHTML='<div class="txt">'+esc(val).replace(/\n/g,'<br>')+'</div>';
+    else el.style.display='none';
+  });
+  document.querySelectorAll('.textslot-inline[data-key]').forEach(function(el){
+    // Inline tekstje bij plek 5-2: leeg -> alleen dit vakje verdwijnt,
+    // de podiumplek zelf (naam + punten) blijft gewoon staan.
+    var val=(TEXTS[el.getAttribute('data-key')]||'').trim();
+    if(val) el.innerHTML='<div class="txt">'+esc(val).replace(/\n/g,'<br>')+'</div>';
+    else el.style.display='none';
   });
 })();
 
