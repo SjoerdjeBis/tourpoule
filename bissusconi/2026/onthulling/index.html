@@ -5,12 +5,15 @@
 :root{--bg:#0f1115;--panel:#171a21;--panel2:#1f232c;--line:#2a2f3a;--txt:#e8eaed;
   --muted:#9aa3b2;--accent:#f6d417;--green:#36d399;--gold:#f6d417;--sil:#cdd3dd;--brz:#e0a878;}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:var(--bg);color:var(--txt);
+body{margin:0;background:var(--bg);color:var(--txt);overscroll-behavior-y:none;
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;line-height:1.5}
 .wrap{max-width:560px;margin:0 auto;padding:0 20px calc(60px + env(safe-area-inset-bottom))}
 .logo{display:block;width:190px;max-width:60%;margin:26px auto 0;background:#fff;border-radius:14px;padding:12px 14px}
 
-.scene{min-height:120vh;min-height:120dvh;display:flex;flex-direction:column;justify-content:center;
+/* svh, niet dvh: de kleine viewport verandert niet als de adresbalk van de
+   telefoon tijdens het scrollen in- of uitschuift. Met dvh groeit/krimpt
+   elke sectie onder je vinger en lijkt de tekst te verspringen. */
+.scene{min-height:120vh;min-height:120svh;display:flex;flex-direction:column;justify-content:center;
   align-items:center;text-align:center;opacity:0;transform:translateY(30px);
   transition:opacity .7s ease,transform .7s ease;padding:60px 0}
 .scene.in{opacity:1;transform:none}
@@ -62,10 +65,10 @@ body{margin:0;background:var(--bg);color:var(--txt);
    worden bij elke hergeneratie opnieuw ingevuld. Aanpassen doe je met
    "python3 -m tourpoule onthulling-teksten" (menu: Na de Tour). */
 const TEXTS = {
-  gele_trui: "Pogacar, ik hoop dat hij vandaag in Parijs weer wat sympathie heeft gewonnen, want hij blijft er voor strijden, want er was dit jaar duidelijk een kantelpunt bereikt in het pruimen van zijn gemakkelijke overwinningen. De overmacht is groot, ons sporthart juicht voor Pogi, ons entertainmentshart hoopt dat ie volgend jaar een griepje heeft.",
-  groene_trui: "Groen was leuk dit jaar! Mads Pedersen heeft er ontzettend hard voor moeten werken (hij is nou eenmaal niet de snelste in een rechttoe-rechtaan-sprint. Maar als de weg enigszins anders loopt, is Mads erbij. Elke tussensprint, elke sprint, of het nou een sprintetappe was of een bergetappe. Leuke winnaar!",
-  bolletjestrui: "Nog zo'n fijne. Richie Carapaz, ik heb hem genoeg bejubeld denk ik, staat er met recht!",
-  witte_trui: "We kunnen nog wel even vooruit met goede renners de komende jaren. Want Del Toro en Seixas (19!) gaan alleen nog maar beter worden.",
+  gele_trui: "Pogacar, ik hoop dat hij vandaag in Parijs weer wat sympathie heeft gewonnen. Want laten we eerlijk zijn: het is een groot sportman, en hij blijft er maar voor strijden. Toch was er dit jaar duidelijk een kantelpunt bereikt in het pruimen van zijn gemakkelijke ",
+  groene_trui: "overwinningen. De overmacht is groot. Dus ja, ons sporthart juicht voor Pogi, maar ons entertainmentshart hoopt dat ie volgend jaar een griepje heeft.Groen was leuk dit jaar! Mads Pedersen heeft er ontzettend hard voor moeten werken ",
+  bolletjestrui: "(hij is nou eenmaal niet de snelste in een rechttoe-rechtaan-sprint). Maar als de weg enigszins anders loopt, is Mads ",
+  witte_trui: "erbij. Elke tussensprint, elke sprint, of het nou een sprintetappe was of een bergetappe. Leuke winnaar!",
   rode_lantaarn: "Cees Bol, toch een beetje de Vingegaard van het omgekeerde klassement. Maar dit jaar pakt ie m! De rode lantaarn! ",
   eerste_uitvaller: "Ondanks uw Tourpouledirecteur en ondanks Teletekst was dat dus niet Arnaud de Lie. Helaas!",
   beste_ploeg: "",
