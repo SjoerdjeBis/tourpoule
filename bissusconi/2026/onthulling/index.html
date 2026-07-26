@@ -8,12 +8,15 @@
 body{margin:0;background:var(--bg);color:var(--txt);overscroll-behavior-y:none;
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;line-height:1.5}
 .wrap{max-width:560px;margin:0 auto;padding:0 20px calc(60px + env(safe-area-inset-bottom))}
-.logo{display:block;width:190px;max-width:60%;margin:26px auto 0;background:#fff;border-radius:14px;padding:12px 14px}
+/* aspect-ratio reserveert de hoogte meteen; zonder dit springt de pagina
+   één keer op het moment dat het logo is gedecodeerd. */
+.logo{display:block;width:190px;max-width:60%;margin:26px auto 0;background:#fff;
+  border-radius:14px;padding:12px 14px;aspect-ratio:392/133;height:auto}
 
 /* svh, niet dvh: de kleine viewport verandert niet als de adresbalk van de
    telefoon tijdens het scrollen in- of uitschuift. Met dvh groeit/krimpt
    elke sectie onder je vinger en lijkt de tekst te verspringen. */
-.scene{min-height:120vh;min-height:120svh;display:flex;flex-direction:column;justify-content:center;
+.scene{min-height:120vh;min-height:120svh;min-height:var(--scene-h,120svh);display:flex;flex-direction:column;justify-content:center;
   align-items:center;text-align:center;opacity:0;transform:translateY(30px);
   transition:opacity .7s ease,transform .7s ease;padding:60px 0}
 .scene.in{opacity:1;transform:none}
@@ -81,6 +84,24 @@ const TEXTS = {
   plek1: "Het is Huig! Weer! Twee jaar geleden pakte hij ook de winst. Een prachtprestatie. De goed voorspelde trui van Mads Pedersen brengt hem net over Cynthia heen. Toch bijzonder voor een man die koos voor Antonio Tiberi in zijn Tourpoule. Gelukkig bleef ie op de reservebank. Van harte Hugo, jij krijgt gauw een warme hand van de Tourpoule-directeur..",
   slotwoord: "Drie weken Tour de France, het zit er weer op. Nu het WK klaar is, en de Tour, zit er nog maar één ding op: lekker nietsen op vakantie. Vrijdag vertrekken we, richting Frankrijk, in het spoor van. Bedankt voor de deelname, het was een mooie vernieuwde versie van de Tourpoule, ik hoop dat het jullie ook beviel. En bedankt voor de leuke reacties op de mail en in het dorp. Tot volgend jaar!"
 };
+/* Sectiehoogte één keer in pixels vastleggen. Anders verandert hij zodra de
+   adresbalk van de telefoon in- of uitschuift, en verspringt de tekst onder je
+   vinger tijdens het scrollen. Alleen bij een echte breedtewijziging (rotatie)
+   opnieuw berekenen — een hoogteverschil is bijna altijd die adresbalk. */
+(function(){
+  var breedte = window.innerWidth;
+  function zet(){
+    document.documentElement.style.setProperty(
+      '--scene-h', Math.round(window.innerHeight * 1.2) + 'px');
+  }
+  zet();
+  window.addEventListener('resize', function(){
+    if (window.innerWidth !== breedte) { breedte = window.innerWidth; zet(); }
+  });
+  window.addEventListener('orientationchange', function(){
+    breedte = window.innerWidth; setTimeout(zet, 250);
+  });
+})();
 (function(){
   var esc=function(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   document.querySelectorAll('.textslot[data-key]').forEach(function(el){
