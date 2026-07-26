@@ -65,11 +65,11 @@ body{margin:0;background:var(--bg);color:var(--txt);overscroll-behavior-y:none;
    worden bij elke hergeneratie opnieuw ingevuld. Aanpassen doe je met
    "python3 -m tourpoule onthulling-teksten" (menu: Na de Tour). */
 const TEXTS = {
-  gele_trui: "Pogacar, ik hoop dat hij vandaag in Parijs weer wat sympathie heeft gewonnen. Want laten we eerlijk zijn: het is een groot sportman, en hij blijft er maar voor strijden. Toch was er dit jaar duidelijk een kantelpunt bereikt in het pruimen van zijn gemakkelijke ",
-  groene_trui: "overwinningen. De overmacht is groot. Dus ja, ons sporthart juicht voor Pogi, maar ons entertainmentshart hoopt dat ie volgend jaar een griepje heeft.Groen was leuk dit jaar! Mads Pedersen heeft er ontzettend hard voor moeten werken ",
-  bolletjestrui: "(hij is nou eenmaal niet de snelste in een rechttoe-rechtaan-sprint). Maar als de weg enigszins anders loopt, is Mads ",
-  witte_trui: "erbij. Elke tussensprint, elke sprint, of het nou een sprintetappe was of een bergetappe. Leuke winnaar!",
-  rode_lantaarn: "Cees Bol, toch een beetje de Vingegaard van het omgekeerde klassement. Maar dit jaar pakt ie m! De rode lantaarn! ",
+  gele_trui: "Pogacar, ik hoop dat hij vandaag in Parijs weer wat sympathie heeft gewonnen. Want laten we eerlijk zijn: het is een groot sportman, en hij blijft er maar voor strijden. Toch was er dit jaar duidelijk een kantelpunt bereikt in het pruimen van zijn gemakkelijke overwinningen. De overmacht is groot. Dus ja, ons sporthart juicht voor Pogi, maar ons entertainmentshart hoopt dat ie volgend jaar een griepje heeft.",
+  groene_trui: "Groen was leuk dit jaar! Mads Pedersen heeft er ontzettend hard voor moeten werken (hij is nou eenmaal niet de snelste in een rechttoe-rechtaan-sprint). Maar als de weg enigszins anders loopt, is Mads erbij. Elke tussensprint, elke sprint, of het nou een sprintetappe was of een bergetappe. Leuke winnaar!",
+  bolletjestrui: "Richie Carapaz! De bolletjestrui is nog wel eens een deceptie, maar Carapaz heeft het ontzettend goed gedaan. Genoeg bewierookt nu toch?",
+  witte_trui: "De jeugd heeft de toekomst of zo! Del Toro en Seixas gaan in elk geval nog beter worden, en zijn hopelijk gauw goed genoeg om Pogacar het vuur aan de scheentjes te leggen.",
+  rode_lantaarn: "Cees Bol, die gaat altijd voor de laatste plaats, maar is daar soms toch te snel voor. Dit jaar niet!",
   eerste_uitvaller: "Ondanks uw Tourpouledirecteur en ondanks Teletekst was dat dus niet Arnaud de Lie. Helaas!",
   beste_ploeg: "",
   etappe18: "",
@@ -79,7 +79,7 @@ const TEXTS = {
   plek3: "Bjorn Jansen, in zijn 15e deelname, weer net niet! Vorig jaar derde, dit jaar derde. Dan ben je een hele goede (derde).",
   plek2: "Och, de Bont, ze redt het net niet! Probeerde dinsdag in Nijmegen de Tourpoule-directeur nog om te kopen met fysieke toenadering, maar het mocht niet baten! ",
   plek1: "Het is Huig! Weer! Twee jaar geleden pakte hij ook de winst. Een prachtprestatie. De goed voorspelde trui van Mads Pedersen brengt hem net over Cynthia heen. Toch bijzonder voor een man die koos voor Antonio Tiberi in zijn Tourpoule. Gelukkig bleef ie op de reservebank. Van harte Hugo, jij krijgt gauw een warme hand van de Tourpoule-directeur..",
-  slotwoord: "Drie weken Tour de France, het zit er weer op. Nu het WK klaar is, en de Tour, zit er nog maar één ding op: lekker nietsen op vakantie. Vrijdag vertrekken we, richting Frankrijk, in het spoor van. Iedereen bedankt voor de deelname, het was een mooie vernieuwde versie van de Tourpoule, ik hoop dat het jullie ook beviel. Iedereen bedankt voor de leuke reacties op de mail en in het dorp, en tot volgend jaar!"
+  slotwoord: "Drie weken Tour de France, het zit er weer op. Nu het WK klaar is, en de Tour, zit er nog maar één ding op: lekker nietsen op vakantie. Vrijdag vertrekken we, richting Frankrijk, in het spoor van. Bedankt voor de deelname, het was een mooie vernieuwde versie van de Tourpoule, ik hoop dat het jullie ook beviel. En bedankt voor de leuke reacties op de mail en in het dorp. Tot volgend jaar!"
 };
 (function(){
   var esc=function(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
