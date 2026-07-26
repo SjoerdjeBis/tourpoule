@@ -18,7 +18,11 @@ html,body{margin:0;height:100%;background:#000;color:var(--txt);
 .card{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
   align-items:center;text-align:center;padding:calc(58px + env(safe-area-inset-top)) 26px
   calc(40px + env(safe-area-inset-bottom));gap:14px}
-.card.on{display:flex;z-index:2}
+.card.on{display:flex;z-index:6;pointer-events:none}
+/* De kaart ligt bóven de tik-zones, maar laat tikken door: alleen echte
+   knoppen en links vangen ze op. Zo blijft doorbladeren werken én zijn
+   'Deel je kaart', 'opnieuw' en de slotlinks gewoon aanklikbaar. */
+.card.on a,.card.on button{pointer-events:auto}
 /* Doorlopend routeprofiel: één lang profiel dat over alle kaarten heen schuift */
 .profile{position:absolute;left:0;right:0;bottom:0;height:152px;overflow:hidden;z-index:1;pointer-events:none}
 .profile-track{position:absolute;bottom:0;left:0;transition:transform .8s cubic-bezier(.35,.05,.15,1)}
@@ -38,6 +42,7 @@ html,body{margin:0;height:100%;background:#000;color:var(--txt);
 @keyframes fill{to{width:100%}}
 /* tik-zones */
 .zone{position:absolute;top:0;bottom:0;width:38%;z-index:5}
+
 .zone.l{left:0}.zone.r{right:0;width:62%}
 /* content */
 .kicker{color:var(--accent);font-weight:800;font-size:14px;letter-spacing:.14em;
@@ -276,13 +281,13 @@ function render(c){
   } else if(c.type==='share'){
     const uni=(c.unique||[]).map(u=>`<div class="sc-uni-row">${u.name} <span>(${u.pts}p)</span></div>`).join('');
     inner=`<div class="kicker anim">Deel je Wrapped</div>`
-      +`<div class="sharecard anim2"><div class="sc-top"><img src="${LOGO}"><span>Bissusconi Tourpoule<br>Wrapped · 2025</span></div>`
+      +`<div class="sharecard anim2"><div class="sc-top"><img src="${LOGO}"><span>Bissusconi Tourpoule<br>Wrapped · ${c.year||''}</span></div>`
       +`<div class="sc-name">${c.name}</div><div class="sc-pos">${c.pos}<span>e</span></div>`
       +`<div class="sc-lab">van ${c.npart} · ${c.total} punten</div>`
       +`<div class="sc-persona">${c.emoji} ${c.persona}</div>`
       +(uni?`<div class="sc-uni"><div class="sc-uni-h">Jouw unieke puntenpakkers</div>${uni}</div>`:'')
       +`</div>`
-      +`<button class="clink anim3" style="max-width:340px" onclick="alert('In het echt: kaart opslaan of delen')">📲 Deel je kaart</button>`;
+      +`<button class="clink anim3" id="sharebtn" style="max-width:340px" onclick="deelKaart(this)">📲 Deel je kaart</button>`;
   } else if(c.type==='closer'){
     extra=confetti();
     inner=`<img class="logo anim" src="${LOGO}" style="width:150px"><div class="title anim2" style="font-size:34px">${c.title}</div>`
@@ -307,6 +312,129 @@ function countUp(el){
     if(p<1) requestAnimationFrame(step); else el.textContent=el.dataset.num;}
   requestAnimationFrame(step);
 }
+/* ---------------------------------------------------------------------------
+   Deel je kaart: de kaart wordt op een canvas getekend en als PNG doorgegeven
+   aan het deelmenu van de telefoon (WhatsApp, Instagram, Berichten…).
+   Kan het toestel geen bestanden delen, dan valt hij terug op downloaden.
+--------------------------------------------------------------------------- */
+function _tekenKaart(c){
+  return new Promise(function(klaar){
+    var uni=(c.unique||[]).slice(0,3);
+    // Hoogte volgt de inhoud: zonder unieke puntenpakkers is de kaart korter,
+    // anders blijft er een lap lege ruimte onderaan staan.
+    var B=1080, H=980 + (uni.length ? 150 + uni.length*46 : 0);
+    var x=document.createElement('canvas');
+    x.width=B; x.height=H;
+    var g=x.getContext('2d');
+    var mid=B/2;
+
+    g.fillStyle='#12151c'; g.fillRect(0,0,B,H);
+    g.fillStyle='#171a21';
+    var m=70, w=B-2*m, h=H-2*m, r=54;
+    g.beginPath(); g.moveTo(m+r,m);
+    g.arcTo(m+w,m,m+w,m+h,r); g.arcTo(m+w,m+h,m,m+h,r);
+    g.arcTo(m,m+h,m,m,r); g.arcTo(m,m,m+w,m,r); g.closePath();
+    g.fill(); g.strokeStyle='#2a2f3a'; g.lineWidth=3; g.stroke();
+
+    var logo=new Image();
+    logo.onload=function(){
+      var lw=300, lh=lw*logo.height/logo.width, lx=mid-lw/2, ly=m+56;
+      g.fillStyle='#fff';
+      g.beginPath(); g.moveTo(lx-16+14,ly-12);
+      g.arcTo(lx+lw+16,ly-12,lx+lw+16,ly+lh+12,14);
+      g.arcTo(lx+lw+16,ly+lh+12,lx-16,ly+lh+12,14);
+      g.arcTo(lx-16,ly+lh+12,lx-16,ly-12,14);
+      g.arcTo(lx-16,ly-12,lx+lw+16,ly-12,14); g.closePath(); g.fill();
+      g.drawImage(logo,lx,ly,lw,lh);
+
+      var y=ly+lh+92;
+      g.textAlign='center';
+      g.fillStyle='#f6d417'; g.font='800 40px -apple-system,Arial,sans-serif';
+      g.fillText('Bissusconi Tourpoule', mid, y);
+      g.fillText('Wrapped · ' + (c.year || new Date().getFullYear()), mid, y+52);
+
+      y+=150;
+      g.fillStyle='#e8eaed'; g.font='800 52px -apple-system,Arial,sans-serif';
+      g.fillText(c.name, mid, y);
+
+      y+=190;
+      g.fillStyle='#f6d417'; g.font='900 190px -apple-system,Arial,sans-serif';
+      var pos=String(c.pos), br=g.measureText(pos).width;
+      g.font='900 70px -apple-system,Arial,sans-serif';
+      var be=g.measureText('e').width;
+      g.textAlign='left';
+      g.font='900 190px -apple-system,Arial,sans-serif';
+      g.fillText(pos, mid-(br+be)/2, y);
+      g.font='900 70px -apple-system,Arial,sans-serif';
+      g.fillText('e', mid-(br+be)/2+br, y);
+      g.textAlign='center';
+
+      y+=64;
+      g.fillStyle='#9aa3b2'; g.font='400 38px -apple-system,Arial,sans-serif';
+      g.fillText('van ' + c.npart + ' · ' + c.total + ' punten', mid, y);
+
+      y+=76;
+      g.fillStyle='#e8eaed'; g.font='800 44px -apple-system,Arial,sans-serif';
+      g.fillText((c.emoji ? c.emoji+' ' : '') + c.persona, mid, y);
+
+      if(uni.length){
+        y+=54;
+        g.strokeStyle='#2a2f3a'; g.lineWidth=2;
+        g.beginPath(); g.moveTo(m+70,y); g.lineTo(B-m-70,y); g.stroke();
+        y+=52;
+        g.fillStyle='#9aa3b2'; g.font='700 28px -apple-system,Arial,sans-serif';
+        g.fillText('JOUW UNIEKE PUNTENPAKKERS', mid, y);
+        y+=52;
+        uni.forEach(function(u){
+          g.font='700 34px -apple-system,Arial,sans-serif';
+          var naam=u.name+'  ', pts='('+u.pts+'p)';
+          var wn=g.measureText(naam).width;
+          g.font='700 34px -apple-system,Arial,sans-serif';
+          var wp=g.measureText(pts).width, start=mid-(wn+wp)/2;
+          g.textAlign='left';
+          g.fillStyle='#e8eaed'; g.fillText(naam, start, y);
+          g.fillStyle='#f6d417'; g.fillText(pts, start+wn, y);
+          g.textAlign='center';
+          y+=46;
+        });
+      }
+      x.toBlob(function(b){ klaar(b); }, 'image/png');
+    };
+    logo.onerror=function(){ x.toBlob(function(b){ klaar(b); }, 'image/png'); };
+    logo.src=LOGO;
+  });
+}
+
+function deelKaart(knop){
+  var kaart=CARDS[idx];
+  if(!kaart || kaart.type!=='share') return;
+  var oud=knop.textContent;
+  knop.textContent='⏳ Kaart maken…';
+  _tekenKaart(kaart).then(function(blob){
+    var naam='bissusconi-wrapped.png';
+    var bestand=new File([blob], naam, {type:'image/png'});
+    var tekst=kaart.name+' werd '+kaart.pos+'e van '+kaart.npart+
+              ' in de Bissusconi Tourpoule.';
+    if(navigator.canShare && navigator.canShare({files:[bestand]})){
+      navigator.share({files:[bestand], title:'Mijn Bissusconi Wrapped', text:tekst})
+        .catch(function(){})
+        .then(function(){ knop.textContent=oud; });
+      return;
+    }
+    // Geen bestandsdeling (meestal desktop): dan maar downloaden.
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url; a.download=naam; document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+    knop.textContent='✅ Kaart opgeslagen';
+    setTimeout(function(){ knop.textContent=oud; }, 2500);
+  }).catch(function(){
+    knop.textContent='⚠️ Lukte niet — probeer opnieuw';
+    setTimeout(function(){ knop.textContent=oud; }, 2500);
+  });
+}
+
 function show(){
   document.querySelectorAll('.card').forEach(c=>c.remove());
   const html=render(CARDS[idx]);
